@@ -1,3 +1,114 @@
+VSCP & Friends Version 0.4.0 - Fluorine
+==================================================================
+This is the 0.4.0 of VSCP & Friends. Some features is still missing 
+and there are probably some bugs left so please report all your findings to
+bugs@vscp.org
+
+It been quite some time now since the last official release of VSCP & Friends but here its is, the brand new 0.4.0 Fluorine version, the free and open source framework for M2M and IoT setups. As of 28 of August VSCP & Friends has become thirteen and is now a teenager. Who could ever think we would still be on it today back in 2000. But we are.
+
+We have now reached all the goals
+
+    We have uniform device discovery and identification.
+    We have uniform device configuration.
+    We have autonomous/distributed device functionality.
+    We have a uniform way to present data.
+    We have a uniform way to update/maintain device firmware.
+
+
+The software package has always worked well on Raspberry Pi boards and on BeagleBone Black boards and on 
+all other small boards out there, as well as on bigger systems. Regrettably we have to drop native windows support 
+for the vscpd daemon from this version, as we just does not have the time to support it at the moment. All software 
+around it will however still work also on the windows platform and will do so also in the future. That's a promise. 
+If you absolutely need it, it should be possible to build with MinGW or similar.
+
+So what is new in VSCP & Friends in this release.
+
+First of all there is a new driver model which we call Level II drivers. This type of drivers can use 
+the variables of the daemon for it's configuration and therefore becomes very flexible as the variables of 
+the daemon can be edited and changed remotely. This is a development that aims at drivers that can be 
+installed and configured on a remote machine just as apps. are installed on cellular phone today.
+
+A built in webserver is available in  the system. This web-server can, as any other web-server, let a 
+browser fetch pages you put on the servers file system. But it's also a built in user interface for the 
+vscpd daemon where you can edit, delete  and create variables. Investigate interfaces on the machine. Add, 
+delete and create decision matrix elements so that you can create automation tasks such as running a 
+series of programmes when a button is pressed or something else happens. The possibilities with the built 
+in scheduler is endless. The user interface for the daemon will be extended in the future with many new 
+features.
+
+We have wanted to create a flexible way to make user interfaces for VSCP & Friends for many years now and 
+it's  not until HTML5  websockets came around that it has been possible to realize. But now we have a 
+HTML5 websocket interface on the VSCP daemon. This means you can build rich live web interfaces with 
+widgets for such things as temperature display or buttons for control. Each widget becomes its own light 
+client. If you can build a web-page you can build a simple or an advanced control user interface. A 
+JavaScript library helps in creating controls and displaying and getting a widget working on a page is 
+usually one line of JavaScript code.  
+
+The VSCP protocol by itself is an abstraction for other real world protocols and even if a real world 
+component can hook on to the VSCP & Friends on any of the well defined  interfaces, a driver is the most 
+common way to add support for other real world systems. VSCP & Friends is not built to be the only 
+solution, it is designed to take advantage of all other solutions/protocols by make intelligent 
+abstractions of there functionality.
+
+A level II TCP/IP link driver has been added. With this driver it is possible to connect to other daemons 
+on other remote machines and/or on smaller boards with a simple TCP/IP interface. The connection will be 
+held up by the daemon even if it falls. 
+
+A level II socketcan driver and a Level I socketcan driver has been added. So now all CAN devices that 
+have socketcan support (most) is supported by VSCP.
+
+A level II logger is added to the level I logger which can help in debugging you system. This logger also 
+can log events for later user friendly inspection in VSCP works.
+
+A level II MQTT subscribe/publish driver has been added to make it possible to use this popular IBM 
+protocol to send VSCP events over a topic-channel. As MQTT is available on many, many platforms this 
+extends the reach for VSCP & Friends to.
+
+A level II raw Ethernet driver has been added. This driver makes it possible to send raw ethernet VSCP 
+frames instead of IP frames and therefore build clients that does not have to implement a full TCP/IP 
+stack on them and also has no need for being setup with an IP-address etc and thus works when started up. 
+A temperature sensor or a switch hooked up to a local Ethernet just don't need the space taken up by the 
+TCP/IP stack.
+
+A level II LM-sensors driver has been added which makes it possible to monitor the health 
+(temperature/voltage/rpm of fans) of a mainboard and CPU's and the disks on a remote machine.
+
+And then there are the old Level I drivers. can232, xap and others.
+
+The helper-dll is now pretty complete and makes it easy to interface the different interfaces of 
+VSCP & Friends and decode/code data.
+
+VSCP-Works now can update firmware using the generic algorithm as well.  Sample firmware for 
+AVR processors is available. It also have support for Level II and can read and write multi page and 
+decision matrix of remote devices. It can also handle abstractions from the MDF specification from the 
+device and therefore configure devices on the highest user level. This is still  tool for developers and 
+we expect many of it's user friendly parts to be moved or be doubled in the web-interface.
+
+And then it is lot, and lot and lot and lot of small things fixed and added everywhere.
+
+Enjoy!
+Ake Hedman
+
+readme for release 0.1.2
+========================
+- Combined CANAL and VSCP daemon into one program
+
+Ake Hedman, eurosource, Los. Sweden 2004-12-07
+
+readme for release 0.1.1
+========================
+
+- Installation now starts the service after installation.
+- A severe bug was found in the canaldaemon/service which made it not receiving messages from devices. Fixed!
+- Initiated the use of wxWidgets.
+
+Ake Hedman, eurosource, Los. Sweden 2004-09-25 - Eurosource change name to Grodans Paradis AB and this is reflected 
+	in copyright messages.
+- Improvements of scan interface in VSCP Works.
+- Register configurations can now be saved/loaded in VSCP Works.
+- Fixed memory leak in tcp/ip interface of VSCP daemon. 
+
+
 VSCP & Friends Version 0.3.3 - Oxygen
 ==================================================================
 This is the 0.3.3 of VSCP & Friends. Some features is still missing 

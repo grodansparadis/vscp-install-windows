@@ -8,7 +8,7 @@
 
 !define PRODUCT_NAME "VSCP & friends"
 ;!define PRODUCT_VERSION '${VERSION}'
-!define PRODUCT_VERSION '0.3.3'
+!define PRODUCT_VERSION '0.4.0'
 !define PRODUCT_GROUP "Grodans Paradis AB"
 !define PRODUCT_PUBLISHER "Grodans Paradis AB"
 !define PRODUCT_WEB_SITE "http://www.vscp.org"

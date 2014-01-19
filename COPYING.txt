@@ -5,7 +5,7 @@ This program is free software; you can redistribute it and/or
  
  This file is part of the VSCP (http://sourceforge.net/projects/m2m/) 
  
- Copyright (C) 2000-2012 Ake Hedman, Grodans Paradis AB, 
+ Copyright (C) 2000-2014 Ake Hedman, Grodans Paradis AB, 
  <akhe@grodansparadis.com>
  
  This file is distributed in the hope that it will be useful,
