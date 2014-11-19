@@ -488,8 +488,8 @@ Section "Development tools & examples" SEC07
 	!insertmacro InstallFolder files\examples
 	!insertmacro InstallFolder files\include
 	!insertmacro InstallFolder files\lib
-	!insertmacro InstallFolder files\cpp
-	RegDLL "$INSTDIR\lib\axvlc.dll"
+;	!insertmacro InstallFolder files\cpp
+;	RegDLL "$INSTDIR\lib\axvlc.dll"
  
 SectionEnd 
 
