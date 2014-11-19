@@ -11,7 +11,7 @@
 !define PRODUCT_VERSION '1.0.0'
 !define PRODUCT_GROUP "Grodans Paradis AB"
 !define PRODUCT_PUBLISHER "Grodans Paradis AB"
-!define PRODUCT_WEB_SITE "http://www.paradiseofthefrog.com"
+!define PRODUCT_WEB_SITE "http://www.vscp.org"
 !define PRODUCT_DIR_REGKEY "Software\VSCP"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
@@ -373,12 +373,36 @@ Section "Support components (required)" SEC01
 		"${PRODUCT_WEB_SITE}"
  
 	FileWrite $UninstallLog "${PRODUCT_GROUP} Website.url$\r$\n"
+	
+	; Shortcut to VSCP specification
+	WriteIniStr "$INSTDIR\VSCP specification.url" "InternetShortcut" "URL" \
+		"${PRODUCT_WEB_SITE}/docs/vscpspec/doku.php"
  
-	; Shortcut to VSCP docs on web site
-	WriteIniStr "$INSTDIR\VSCP Application Documentation.url" "InternetShortcut" "URL" \
-		"${PRODUCT_WEB_SITE}/wiki/doku.php?id=canal_vscp_applications"
+	FileWrite $UninstallLog "VSCP specification.url$\r$\n"
  
-	FileWrite $UninstallLog "Documentation.url$\r$\n"
+	; Shortcut to VSCP daemon docs
+	WriteIniStr "$INSTDIR\VSCP daemon docs.url" "InternetShortcut" "URL" \
+		"${PRODUCT_WEB_SITE}/docs/vscpd/doku.php"
+ 
+	FileWrite $UninstallLog "VSCP daemon docs.url$\r$\n"
+	
+	; Shortcut to VSCP works docs
+	WriteIniStr "$INSTDIR\VSCP works docs.url" "InternetShortcut" "URL" \
+		"${PRODUCT_WEB_SITE}/docs/vscpworks/doku.php"
+ 
+	FileWrite $UninstallLog "VSCP works docs.url$\r$\n"
+	
+	; Shortcut to VSCP helperlib docs
+	WriteIniStr "$INSTDIR\VSCP helperlib docs.url" "InternetShortcut" "URL" \
+		"${PRODUCT_WEB_SITE}/docs/vscphelper/doku.php"
+ 
+	FileWrite $UninstallLog "VSCP helperlib docs.url$\r$\n"
+ 
+	; Shortcut to VSCP wiki on web site
+	WriteIniStr "$INSTDIR\VSCP wiki.url" "InternetShortcut" "URL" \
+		"${PRODUCT_WEB_SITE}/wiki"
+ 
+	FileWrite $UninstallLog "VSCP wiki.url$\r$\n"
   
 	SetOutPath $SYSDIR
   
