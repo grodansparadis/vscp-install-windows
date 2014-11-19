@@ -1,6 +1,6 @@
 // FILE: vscp.h 
 //
-// Copyright (C) 2000-2012 Ake Hedman akhe@grodansparadis.com 
+// Copyright (C) 2000-2014 Ake Hedman akhe@grodansparadis.com 
 //
 // This software is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -157,7 +157,7 @@ typedef unsigned short                      uint64_t;
 #define VSCPD_UDP_OBJ_MUTEX                 _("____VSCPD_UDP_OBJ_MUTEX____")
 #define VSCPD_SEND_OBJ_MUTEX                _("____VSCPD_SEND_OBJ_MUTEX____")
 #define VSCPD_RECEIVE_OBJ_MUTEX             _("____VSCPD_RECEIVE_OBJ_MUTEX____")
-#define VSCPD_CLIENT_MUTEX                  _("__VSCPD_CLIENT_MUTEX__")
+#define VSCPD_CLIENT_MUTEX                  _("____VSCPD_CLIENT_MUTEX____")
 
 
 #define	VSCP_LEVEL2_UDP_PORT                9598
@@ -168,6 +168,8 @@ typedef unsigned short                      uint64_t;
 
 #define VSCP_MAX_DATA                       (512-25)
 
+#define VSCP_LEVEL1                         1
+#define VSCP_LEVEL2                         2
 
 #ifdef __cplusplus
 extern "C" {
@@ -177,29 +179,24 @@ extern "C" {
 
 // This structure is for VSCP Level II
 // 
-// If bit 2 in the head byte is set this is a CAN message
-// which is the same as a VSCP Level I event. Bits 0,1 will
-// have useage only for CAN in this case and GUID[15] is part 
-// of the CAN id. Max data size is eight bytes in this case.
-//
+
 typedef struct  {	
 	uint16_t crc;           // crc checksum - currently only used for UDP and RF
 	uint8_t  *pdata;        // Pointer to data. Max 487 (512- 25) bytes
     // Following two are for daemon internal use
 	uint32_t obid;          // Used by driver for channel info etc.
 	uint32_t timestamp;     // Relative time stamp for package in microseconds
-    // CRC should be calculated from
-    // here to end + datablock
+    // ----- CRC should be calculated from here to end + datablock ----
 	uint16_t head;          // Bit 16   GUID is IP v.6 address.
-							// bit 765  prioriy, Priority 0-7 where 0 is highest.
-                            // bit 4 = hardcoded, true for a hardcoded device.
-                            // bit 3 = Dont calculate CRC, false for CRC usage.
+							// bit 765  priority, Priority 0-7 where 0 is highest.
+                            // bit 4 = hard coded, true for a hard coded device.
+                            // bit 3 = Don't calculate CRC, false for CRC usage.
                             // bit 2 = Reserved.
                             // bit 1 = Reserved.
                             // bit 0 = Reserved.
 	uint16_t vscp_class;    // VSCP class
 	uint16_t vscp_type;     // VSCP type
-	uint8_t  GUID[ 16 ];    // Node address MSB(0) -> LSB(15)
+	uint8_t  GUID[ 16 ];    // Node globally unique id MSB(0) -> LSB(15)
 	uint16_t sizeData;      // Number of valid data bytes		
 } vscpEvent;
 
@@ -209,13 +206,8 @@ typedef vscpEvent *PVSCPEVENT;
 
 
 // This structure is for VSCP Level II with data embedded which is used
-// for the TCP interface.
-// 
-// If bit 2 in the head byte is set this is a CAN message
-// which is the same as a VSCP Level I event. Bits 0,1 will
-// have useage only for CAN in this case and GUID[15] is part 
-// of the CAN id. Max data size is eight bytes in this case.
-//
+// for the TCP interface.// 
+
 typedef struct {	
 	uint16_t crc;                   // crc checksum
 	
@@ -232,7 +224,7 @@ typedef struct {
                                     // bit 0 = If bit 2 is set: Remote frame if set
 	uint16_t vscp_class;            // VSCP class
 	uint16_t vscp_type;             // VSCP type
-	uint8_t  GUID[ 16 ];            // Node address MSB(0) -> LSB(15)
+	uint8_t  GUID[ 16 ];            // Node globally unique id MSB(0) -> LSB(15)
 	uint16_t sizeData;              // Number of valid data bytes		
 
     uint8_t  data[VSCP_MAX_DATA];   // Pointer to data. Max 487 (512- 25) bytes
@@ -242,6 +234,8 @@ typedef struct {
 
 typedef vscpEventEx *PVSCPEVENTEX;
 
+// Priorities in the header byte as or'in values
+// Priorities goes from 0-7 where 0 is highest 
 #define VSCP_PRIORITY_0             0x00
 #define VSCP_PRIORITY_1             0x20
 #define VSCP_PRIORITY_2             0x40
@@ -253,6 +247,7 @@ typedef vscpEventEx *PVSCPEVENTEX;
 
 #define VSCP_PRIORITY_HIGH          0x00
 #define VSCP_PRIORITY_LOW           0xE0
+#define VSCP_PRIORITY_MEDIUM        0xC0
 #define VSCP_PRIORITY_NORMAL        0x60
 
 #define VSCP_HEADER_PRIORITY_MASK   0xE0
@@ -270,6 +265,10 @@ typedef vscpEventEx *PVSCPEVENTEX;
 #define VSCP_LEVEL2_MAXDATA         (512 - 25)
 
 #define VSCP_CAN_ID_HARD_CODED	    0x02000000  // Hard coded bit in CAN frame id
+
+// GUID byte positions
+#define VSCP_GUID_MSB               0
+#define VSCP_GUID_LSB               15
 
 //
 // Filter structure for VSCP Level 2
@@ -294,6 +293,45 @@ typedef struct  {
 
 typedef vscpEventFilter *PVSCPEVENTFILTER;
 
+
+/*!
+	Statistics
+
+	This is the general statistics structure
+*/
+
+typedef struct structVSCPStatistics {
+    unsigned long cntReceiveFrames;             // # of receive frames
+    unsigned long cntTransmitFrames;            // # of transmitted frames
+    unsigned long cntReceiveData;               // # of received data bytes
+    unsigned long cntTransmitData;              // # of transmitted data bytes	
+    unsigned long cntOverruns;                  // # of overruns
+    unsigned long x;                            // Currently undefined value 
+    unsigned long y;                            // Currently undefined value 
+    unsigned long z;                            // Currently undefined value 
+} VSCPStatistics;
+
+typedef  VSCPStatistics * PVSCPSTATISTICS;
+
+
+/*!
+	VSCPStatus
+
+	This is the general channel state structure
+*/
+
+#define VSCP_STATUS_ERROR_STRING_SIZE   80
+
+typedef struct structVSCPStatus {
+    unsigned long channel_status;           // Current state for channel
+    unsigned long lasterrorcode;            // Last error code
+    unsigned long lasterrorsubcode;         // Last error subcode
+    char lasterrorstr[VSCP_STATUS_ERROR_STRING_SIZE]; // Last error string
+} VSCPStatus;
+
+
+typedef  VSCPStatus * PVSCPSTATUS;
+ 
 
 // VSCP LEVEL II UDP datagram offsets
 #define VSCP_UDP_POS_HEAD             0
@@ -344,7 +382,7 @@ typedef  VSCPChannelInfo	*PVSCPCHANNELINFO;
 #define VSCP_DATACODING_STRING          0x40
 #define VSCP_DATACODING_INTEGER         0x60
 #define VSCP_DATACODING_NORMALIZED      0x80
-#define VSCP_DATACODING_SINGLE          0xA0
+#define VSCP_DATACODING_SINGLE          0xA0	// single precision float
 #define VSCP_DATACODING_RESERVED1       0xC0
 #define VSCP_DATACODING_RESERVED2       0xE0
 
@@ -420,6 +458,52 @@ struct myNode {
 // 0xe0 - 0xff
 #define VSCP_STD_REGISTER_DEVICE_URL            0xE0
 
+
+// Bits for VSCP server 16-bit capability code
+// used by CLASS1.PROTOCOL, HIGH END SERVER RESPONSE
+#define VSCP_SERVER_CAPABILITY_TCPIP            (1<<15)
+#define VSCP_SERVER_CAPABILITY_UDP              (1<<14)
+#define VSCP_SERVER_CAPABILITY_WEB              (1<<13)
+#define VSCP_SERVER_CAPABILITY_WEBSOCKET        (1<<12)
+#define VSCP_SERVER_CAPABILITY_REST             (1<<11)
+#define VSCP_SERVER_CAPABILITY_IP6              (1<<6)
+#define VSCP_SERVER_CAPABILITY_IP4              (1<<5)
+#define VSCP_SERVER_CAPABILITY_SSL              (1<<4)
+#define VSCP_SERVER_CAPABILITY_TWO_CONNECTIONS  (1<<3)
+
+
+/// Error Codes
+#define VSCP_ERROR_SUCCESS                 0       // All is OK
+#define VSCP_ERROR_ERROR                  -1       // Error
+#define VSCP_ERROR_CHANNEL                 7       // Invalid channel
+#define VSCP_ERROR_FIFO_EMPTY              8       // FIFO is empty
+#define VSCP_ERROR_FIFO_FULL               9       // FIFI is full
+#define VSCP_ERROR_FIFO_SIZE               10      // FIFO size error
+#define VSCP_ERROR_FIFO_WAIT               11      
+#define VSCP_ERROR_GENERIC                 12      // Generic error
+#define VSCP_ERROR_HARDWARE                13      // Hardware error
+#define VSCP_ERROR_INIT_FAIL               14      // Initialization failed
+#define VSCP_ERROR_INIT_MISSING            15		
+#define VSCP_ERROR_INIT_READY              16
+#define VSCP_ERROR_NOT_SUPPORTED           17      // Not supported
+#define VSCP_ERROR_OVERRUN                 18      // Overrun
+#define VSCP_ERROR_RCV_EMPTY               19      // Receive buffer empty
+#define VSCP_ERROR_REGISTER                20      // Register value error
+#define VSCP_ERROR_TRM_FULL                21      // Transmit buffer full
+#define VSCP_ERROR_LIBRARY                 28      // Unable to load library
+#define VSCP_ERROR_PROCADDRESS             29      // Unable get library proc address
+#define VSCP_ERROR_ONLY_ONE_INSTANCE       30      // Only one instance allowed
+#define VSCP_ERROR_SUB_DRIVER              31      // Problem with sub driver call
+#define VSCP_ERROR_TIMEOUT                 32      // Timeout
+#define VSCP_ERROR_NOT_OPEN                33      // The device is not open.
+#define VSCP_ERROR_PARAMETER               34      // A parameter is invalid.
+#define VSCP_ERROR_MEMORY                  35      // Memory exhausted.
+#define VSCP_ERROR_INTERNAL                36      // Some kind of internal program error
+#define VSCP_ERROR_COMMUNICATION           37      // Some kind of communication error
+#define VSCP_ERROR_USER                    38      // Login error username
+#define VSCP_ERROR_PASSWORD                39      // Login error password
+#define VSCP_ERROR_CONNECTION              40      // Could not connect   
+#define VSCP_ERROR_INVALID_HANDLE          41      // The handle is not valid
 
 #ifdef __cplusplus
 }

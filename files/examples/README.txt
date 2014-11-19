@@ -1,0 +1,1 @@
+Look at VSCP Wiki  http://www.vscp.org/wiki/doku.php

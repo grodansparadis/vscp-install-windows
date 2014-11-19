@@ -8,10 +8,10 @@
 
 !define PRODUCT_NAME "VSCP & friends"
 ;!define PRODUCT_VERSION '${VERSION}'
-!define PRODUCT_VERSION '0.4.0'
+!define PRODUCT_VERSION '1.0.0'
 !define PRODUCT_GROUP "Grodans Paradis AB"
 !define PRODUCT_PUBLISHER "Grodans Paradis AB"
-!define PRODUCT_WEB_SITE "http://www.vscp.org"
+!define PRODUCT_WEB_SITE "http://www.paradiseofthefrog.com"
 !define PRODUCT_DIR_REGKEY "Software\VSCP"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
@@ -511,7 +511,7 @@ SectionEnd
     "Components needed to use the VSCP Works client application"
 	
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC05} \
-    "Components needed to unse the VSCP Server."
+    "Components needed to use the VSCP Server."
 	
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC06} \
 	"Drivers"
@@ -557,7 +557,7 @@ Section -Post
 	ExecWait '"$INSTDIR\work\vcredist_x86.exe"'
 	
 	; Install winpcap library
-	ExecWait '"$INSTDIR\work\WinPcap_4_1_2.exe"'
+	ExecWait '"$INSTDIR\work\WinPcap_4_1_3.exe"'
 	
 	; Remove the work folder
 	RMDir /r $INSTDIR\work
