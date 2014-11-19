@@ -422,7 +422,7 @@ Section "Support components (required)" SEC01
 	
 	; Install VSCP Works default configuration file
 	SetShellVarContext all
-	CreateDirectory "$APPDATA\vscp"
+	CreateDirectory "$APPDATA\VSCP"
 ;	CreateDirectory "$APPDATA\certs"
 ;	CreateDirectory "$APPDATA\logs"
 ;	CreateDirectory "$APPDATA\actions"
@@ -430,6 +430,14 @@ Section "Support components (required)" SEC01
 ;	CreateDirectory "$APPDATA\web"
 	SetOutPath "$APPDATA\vscp"
   	File /r files\vscpd\*
+	
+	SetShellVarContext all
+
+	; This sets us permissions
+	AccessControl::GrantOnFile "$APPDATA\vscp" "(S-1-5-32-545)" "FullAccess"
+	AccessControl::GrantOnFile "$APPDATA\vscp\*" "(S-1-5-32-545)" "FullAccess"
+	
+	ExecWait 'Icacls "$APPDATA\vscp" /grant Users:(OI)(CI)M'
 		
 	!insertmacro CloseUninstallLog
  
@@ -448,16 +456,17 @@ Section "Start Menu Shortcut" SEC02
  
 	CreateDirectory "$SMPROGRAMS\VSCP & Friends"
 	CreateShortCut "$SMPROGRAMS\VSCP & Friends\README.lnk" "$INSTDIR\README.txt" ""
-	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP & Friends Site.lnk" "$INSTDIR\VSCP & Friends Website.url" ""
-	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP Specification.lnk" "$INSTDIR\VSCP specification.url" ""
-	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP Daemon Documentation.lnk" "$INSTDIR\VSCP daemon docs.url" ""
-	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP Works Documentation.lnk" "$INSTDIR\VSCP works docs.url" ""
-	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP Helperdll Documentation.lnk" "$INSTDIR\VSCP helperlib docs.url" ""
-	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP wiki.lnk" "$INSTDIR\VSCP wiki.url" ""
 	
 	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP Works.lnk" "$INSTDIR\vscpworks.exe" ""
 	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP Daemon.lnk" "$INSTDIR\vscpd.exe" ""
-    
+	
+	CreateShortCut "$SMPROGRAMS\VSCP & Friends\help VSCP & Friends Site.lnk" "$INSTDIR\VSCP & Friends Website.url" ""
+	CreateShortCut "$SMPROGRAMS\VSCP & Friends\help VSCP Specification.lnk" "$INSTDIR\VSCP specification.url" ""
+	CreateShortCut "$SMPROGRAMS\VSCP & Friends\help VSCP Daemon Documentation.lnk" "$INSTDIR\VSCP daemon docs.url" ""
+	CreateShortCut "$SMPROGRAMS\VSCP & Friends\help VSCP Works Documentation.lnk" "$INSTDIR\VSCP works docs.url" ""
+	CreateShortCut "$SMPROGRAMS\VSCP & Friends\help VSCP Helperdll Documentation.lnk" "$INSTDIR\VSCP helperlib docs.url" ""
+	CreateShortCut "$SMPROGRAMS\VSCP & Friends\help VSCP wiki.lnk" "$INSTDIR\VSCP wiki.url" ""
+	  
 SectionEnd
  
  
@@ -714,8 +723,6 @@ Section "Uninstall" SEC91
 	RMDir "$SMPROGRAMS\VSCP"
 	RMDir /r $SMPROGRAMS\VSCP
  
- 
- 
 	FileOpen $UninstallLog "$INSTDIR\uninstall.log" r
  
 UninstallLoop:
@@ -748,6 +755,18 @@ UninstallEnd:
 	RMDir /r "$INSTDIR\lib\"
 	RMDir /r "$INSTDIR\work\"
 	RMDir /r "$INSTDIR\vscpd\"
+	
+	Delete "$APPDATA\dm.xml"
+	Delete "$APPDATA\variables.xml"
+	Delete "$APPDATA\vscpd.conf"
+	
+	RMDir /r "$APPDATA\actions\"
+	RMDir /r "$APPDATA\certs\"
+	RMDir /r "$APPDATA\logs\"
+	RMDir /r "$APPDATA\web\"
+	RMDir /r "$APPDATA\tables\"
+	
+	
 	Push "\"
 	Call un.RemoveEmptyDirs
 	RMDir "$INSTDIR"

@@ -1,0 +1,17 @@
+
+To give write access to files in programdata
+
+http://stackoverflow.com/questions/7444235/nullsoft-installer-howto-make-programdata-subfolder-writable
+
+
+http://nsis.sourceforge.net/AccessControl_plug-in
+
+
+; This is important to have $APPDATA variable
+; point to ProgramData folder
+; instead of current user's Roaming folder
+SetShellVarContext all
+
+; This sets us permissions
+AccessControl::GrantOnFile "$APPDATA\Folder" "(S-1-5-32-545)" "FullAccess"
+AccessControl::GrantOnFile "$APPDATA\Folder\*" "(S-1-5-32-545)" "FullAccess"
