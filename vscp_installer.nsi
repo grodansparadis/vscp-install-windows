@@ -372,7 +372,7 @@ Section "Support components (required)" SEC01
 	WriteIniStr "$INSTDIR\VSCP & Friends Website.url" "InternetShortcut" "URL" \
 		"${PRODUCT_WEB_SITE}"
  
-	FileWrite $UninstallLog "${PRODUCT_GROUP} Website.url$\r$\n"
+	FileWrite $UninstallLog "VSCP & Friends Website.url$\r$\n"
 	
 	; Shortcut to VSCP specification
 	WriteIniStr "$INSTDIR\VSCP specification.url" "InternetShortcut" "URL" \
@@ -423,17 +423,17 @@ Section "Support components (required)" SEC01
 	; Install VSCP Works default configuration file
 	SetShellVarContext all
 	CreateDirectory "$APPDATA\vscp"
-	CreateDirectory "$APPDATA\certs"
-	CreateDirectory "$APPDATA\logs"
-	CreateDirectory "$APPDATA\actions"
-	CreateDirectory "$APPDATA\tables"
-	CreateDirectory "$APPDATA\web"
+;	CreateDirectory "$APPDATA\certs"
+;	CreateDirectory "$APPDATA\logs"
+;	CreateDirectory "$APPDATA\actions"
+;	CreateDirectory "$APPDATA\tables"
+;	CreateDirectory "$APPDATA\web"
 	SetOutPath "$APPDATA\vscp"
   	File /r files\vscpd\*
 		
 	!insertmacro CloseUninstallLog
  
-	; Add VSCP Works to "recomended programs" for the following extensions
+	; Add VSCP Works to "recommended programs" for the following extensions
 	WriteRegStr HKCR Applications\vscpworks.exe "*.mdf" ""
 	WriteRegStr HKCR Applications\vscpworks.exe "FriendlyAppName" "VSCP Works"
  
@@ -449,7 +449,11 @@ Section "Start Menu Shortcut" SEC02
 	CreateDirectory "$SMPROGRAMS\VSCP & Friends"
 	CreateShortCut "$SMPROGRAMS\VSCP & Friends\README.lnk" "$INSTDIR\README.txt" ""
 	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP & Friends Site.lnk" "$INSTDIR\VSCP & Friends Website.url" ""
-	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP application documentation.lnk" "$INSTDIR\VSCP Application Documentation.url" ""
+	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP Specification.lnk" "$INSTDIR\VSCP specification.url" ""
+	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP Daemon Documentation.lnk" "$INSTDIR\VSCP daemon docs.url" ""
+	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP Works Documentation.lnk" "$INSTDIR\VSCP works docs.url" ""
+	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP Helperdll Documentation.lnk" "$INSTDIR\VSCP helperlib docs.url" ""
+	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP wiki.lnk" "$INSTDIR\VSCP wiki.url" ""
 	
 	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP Works.lnk" "$INSTDIR\vscpworks.exe" ""
 	CreateShortCut "$SMPROGRAMS\VSCP & Friends\VSCP Daemon.lnk" "$INSTDIR\vscpd.exe" ""
@@ -734,6 +738,8 @@ UninstallEnd:
 	Delete "$INSTDIR\vscpworks.exe"
 	Delete "$INSTDIR\vscpd.exe"
 	Delete "$INSTDIR\vscpservice.exe"
+	Delete "$INSTDIR\iflist.exe"
+	Delete "$INSTDIR\mkpasswd.exe"
 	
 	RMDir /r "$INSTDIR\drivers\"
 	RMDir /r "$INSTDIR\doc\*"
@@ -741,7 +747,7 @@ UninstallEnd:
 	RMDir /r "$INSTDIR\include\"
 	RMDir /r "$INSTDIR\lib\"
 	RMDir /r "$INSTDIR\work\"
-	RMDir /r "$INSTDIR\cpp\"
+	RMDir /r "$INSTDIR\vscpd\"
 	Push "\"
 	Call un.RemoveEmptyDirs
 	RMDir "$INSTDIR"
