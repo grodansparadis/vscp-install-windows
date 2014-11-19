@@ -399,8 +399,13 @@ Section "Support components (required)" SEC01
 	; Install VSCP Works default configuration file
 	SetShellVarContext all
 	CreateDirectory "$APPDATA\vscp"
+	CreateDirectory "$APPDATA\certs"
+	CreateDirectory "$APPDATA\logs"
+	CreateDirectory "$APPDATA\actions"
+	CreateDirectory "$APPDATA\tables"
+	CreateDirectory "$APPDATA\web"
 	SetOutPath "$APPDATA\vscp"
-  	File  files\vscpd\*
+  	File /r files\vscpd\*
 		
 	!insertmacro CloseUninstallLog
  
@@ -457,12 +462,12 @@ Section "VSCP Server" SEC05
   
 	SetOutPath "$INSTDIR"
 	!insertmacro OpenUninstallLog	
-	!insertmacro InstallFile files\vscpservice.exe
+;	!insertmacro InstallFile files\vscpservice.exe
 	!insertmacro InstallFile files\vscpd.exe
 	!insertmacro CloseUninstallLog 
 	
 	; Install the service
-	Exec "$INSTDIR\vscpservice.exe -i"
+;	Exec "$INSTDIR\vscpservice.exe -i"
  
 SectionEnd 
 
