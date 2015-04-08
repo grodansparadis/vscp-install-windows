@@ -8,7 +8,7 @@
 
 !define PRODUCT_NAME "VSCP & friends"
 ;!define PRODUCT_VERSION '${VERSION}'
-!define PRODUCT_VERSION '1.0.0'
+!define PRODUCT_VERSION '1.0.1'
 !define PRODUCT_GROUP "Grodans Paradis AB"
 !define PRODUCT_PUBLISHER "Grodans Paradis AB"
 !define PRODUCT_WEB_SITE "http://www.vscp.org"
@@ -31,7 +31,7 @@
  
  
 Name "${PRODUCT_GROUP} ${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile vscp-${PRODUCT_VERSION}-win32.exe
+OutFile vscp-${PRODUCT_VERSION}-x64.exe
 InstallDir "$PROGRAMFILES\VSCP"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 !ifdef NSIS_LZMA_COMPRESS_WHOLE
@@ -407,7 +407,7 @@ Section "Support components (required)" SEC01
 	SetOutPath $SYSDIR
   
 	; Install wx dll's
-  	File  files\wx\*
+  	File  files\x64\wx\*
 	
 	SetOutPath "$INSTDIR"
 	
@@ -487,7 +487,7 @@ Section "VSCP Works" SEC04
   
 	SetOutPath "$INSTDIR"
 	!insertmacro OpenUninstallLog
-	!insertmacro InstallFile files\vscpworks.exe
+	!insertmacro InstallFile files\x64\vscpworks.exe
 	!insertmacro CloseUninstallLog
  
 SectionEnd
@@ -499,8 +499,8 @@ Section "VSCP Server" SEC05
   
 	SetOutPath "$INSTDIR"
 	!insertmacro OpenUninstallLog	
-;	!insertmacro InstallFile files\vscpservice.exe
-	!insertmacro InstallFile files\vscpd.exe
+;	!insertmacro InstallFile files\x64\vscpservice.exe
+	!insertmacro InstallFile files\x64\vscpd.exe
 	!insertmacro CloseUninstallLog 
 	
 	; Install the service
@@ -516,7 +516,7 @@ Section "Drivers" SEC06
   
 	SetOutPath "$INSTDIR"
 	!insertmacro OpenUninstallLog	
-	!insertmacro InstallFolder files\drivers
+	!insertmacro InstallFolder files\drivers\x64\
 	!insertmacro CloseUninstallLog
  
 SectionEnd
@@ -529,7 +529,7 @@ Section "Development tools & examples" SEC07
 	SetOutPath "$INSTDIR"
 	!insertmacro InstallFolder files\examples
 	!insertmacro InstallFolder files\include
-	!insertmacro InstallFolder files\lib
+	!insertmacro InstallFolder files\x64\lib
 ;	!insertmacro InstallFolder files\cpp
 ;	RegDLL "$INSTDIR\lib\axvlc.dll"
  
