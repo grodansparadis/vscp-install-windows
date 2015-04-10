@@ -407,7 +407,7 @@ Section "Support components (required)" SEC01
 	SetOutPath $SYSDIR
   
 	; Install wx dll's
-  	File  files\x86\wx\*
+  	File  files\wx\x86\*
 	
 	SetOutPath "$INSTDIR"
 	
@@ -487,7 +487,7 @@ Section "VSCP Works" SEC04
   
 	SetOutPath "$INSTDIR"
 	!insertmacro OpenUninstallLog
-	!insertmacro InstallFile files\vscpworks.exe
+	!insertmacro InstallFile files\x86\vscpworks.exe
 	!insertmacro CloseUninstallLog
  
 SectionEnd
@@ -529,7 +529,7 @@ Section "Development tools & examples" SEC07
 	SetOutPath "$INSTDIR"
 	!insertmacro InstallFolder files\examples
 	!insertmacro InstallFolder files\include
-	!insertmacro InstallFolder files\x86\lib
+	!insertmacro InstallFolder files\lib\x86
 ;	!insertmacro InstallFolder files\cpp
 ;	RegDLL "$INSTDIR\lib\axvlc.dll"
  

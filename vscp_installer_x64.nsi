@@ -360,10 +360,10 @@ Section "Support components (required)" SEC01
  
 	!insertmacro OpenUninstallLog
  
-	!insertmacro InstallFile files\vscpworks.exe
+	!insertmacro InstallFile files\x64\vscpworks.exe
 	!insertmacro InstallFile *.txt
-	!insertmacro InstallFile files\mkpasswd.exe
-	!insertmacro InstallFile files\iflist.exe
+	!insertmacro InstallFile files\x64\mkpasswd.exe
+	!insertmacro InstallFile files\x64\iflist.exe
  
     !insertmacro InstallFolder files\doc
 	!insertmacro InstallFolder files\work
@@ -407,7 +407,7 @@ Section "Support components (required)" SEC01
 	SetOutPath $SYSDIR
   
 	; Install wx dll's
-  	File  files\x64\wx\*
+  	File  files\wx\x64\*
 	
 	SetOutPath "$INSTDIR"
 	
@@ -529,7 +529,7 @@ Section "Development tools & examples" SEC07
 	SetOutPath "$INSTDIR"
 	!insertmacro InstallFolder files\examples
 	!insertmacro InstallFolder files\include
-	!insertmacro InstallFolder files\x64\lib
+	!insertmacro InstallFolder files\lib\x64
 ;	!insertmacro InstallFolder files\cpp
 ;	RegDLL "$INSTDIR\lib\axvlc.dll"
  
@@ -596,7 +596,7 @@ FunctionEnd
 Section -Post
  
 	; Install VC runtimes
-	ExecWait '"$INSTDIR\work\vcredist_x86.exe"'
+	ExecWait '"$INSTDIR\work\vcredist_x64.exe"'
 	
 	; Install winpcap library
 	ExecWait '"$INSTDIR\work\WinPcap_4_1_3.exe"'
