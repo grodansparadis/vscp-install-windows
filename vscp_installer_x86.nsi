@@ -83,7 +83,7 @@ InstType /NOCUSTOM
  
   ; License page
  
-    !insertmacro MUI_PAGE_LICENSE "COPYING.txt"
+    !insertmacro MUI_PAGE_LICENSE "files\COPYING.txt"
  
   ; Components page
  
@@ -361,7 +361,7 @@ Section "Support components (required)" SEC01
 	!insertmacro OpenUninstallLog
  
 	!insertmacro InstallFile files\x86\vscpworks.exe
-	!insertmacro InstallFile *.txt
+	!insertmacro InstallFile files\*.txt
 	!insertmacro InstallFile files\x86\mkpasswd.exe
 	!insertmacro InstallFile files\x86\iflist.exe
  
