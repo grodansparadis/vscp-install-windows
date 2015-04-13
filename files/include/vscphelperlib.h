@@ -1,29 +1,29 @@
 ///////////////////////////////////////////////////////////////////////////////
 // vscphelperlib.h
 //
-// Interface to the vscphelperlib.dll
-// Documentation is here http://www.vscp.org/docs/vscphelper/doku.php?id=non_graphic_lib_api
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version
-// 2 of the License, or (at your option) any later version.
-// 
 // This file is part of the VSCP (http://www.vscp.org) 
 //
-// Copyright (C) 2000-2014 
-// Ake Hedman, Grodans Paradis AB, <akhe@grodansparadis.com>
+// The MIT License (MIT)
 // 
-// This file is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
+// Copyright (c) 2000-2015 Ake Hedman, Grodans Paradis AB <info@grodansparadis.com>
 // 
-// You should have received a copy of the GNU General Public License
-// along with this file see the file COPYING.  If not, write to
-// the Free Software Foundation, 59 Temple Place - Suite 330,
-// Boston, MA 02111-1307, USA.
-//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 #ifndef WIN32
 #define __LINUX__
@@ -32,18 +32,19 @@
 #define VSCP_HELPER_PRE	WINAPI EXPORT
 #endif
 
-#include "../common/vscp.h"
+#include <vscp.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif	
 
 #ifdef WIN32
-/*
+
 // * * * * *  W I N D O W S  * * * * *
+
 long WINAPI EXPORT vscphlp_newSession(void);
 void WINAPI EXPORT vscphlp_closeSession(long handle);
-void WINAPI EXPORT vscphlp_setResponseTimeout(long handle, unsigned char timeout );
+int WINAPI EXPORT vscphlp_setResponseTimeout(long handle, unsigned char timeout );
 int WINAPI EXPORT vscphlp_isConnected(const long handle);
 int WINAPI EXPORT vscphlp_doCommand( long handle, const char * cmd );
 int WINAPI EXPORT vscphlp_checkReply( long handle, int bClear );
@@ -246,27 +247,25 @@ unsigned char WINAPI EXPORT vscphlp_getVscpPriority( const vscpEvent *pEvent );
 unsigned char WINAPI EXPORT vscphlp_getVscpPriorityEx( const vscpEventEx *pEvent );
 void WINAPI EXPORT vscphlp_setVscpPriority( vscpEvent *pEvent, unsigned char priority );
 void WINAPI EXPORT vscphlp_setVscpPriorityEx( vscpEventEx *pEvent, unsigned char priority );
-*/
 
 #else
-
 
 // * * * * *  U N I X  /  L I N U X  * * * * *
 
 long vscphlp_newSession(void);
 void vscphlp_closeSession(long handle);
-void vscphlp_setResponseTimeout(long handle, unsigned char timeout );
+int vscphlp_setResponseTimeout(long handle, unsigned char timeout );
 int vscphlp_isConnected(const long handle);
 int vscphlp_doCommand( long handle, const char * cmd );
 int vscphlp_checkReply( long handle, int bClear );
 int vscphlp_clearLocalInputQueue( long handle );
-int vscphlp_OpenInterface( long handle, const char *pInterface, unsigned long flags );
-int vscphlp_Open( long handle, const char *pHostname, const char *pUsername, const char *pPassword );
-int vscphlp_Close( long handle );
-int vscphlp_Noop( long handle );
-int vscphlp_ClearDaemonEventQueue( long handle );
-int vscphlp_SendEvent( long handle,  const vscpEvent *pEvent );
-int vscphlp_SendEventEx( long handle, const vscpEventEx *pEvent );
+int vscphlp_openInterface( long handle, const char *pInterface, unsigned long flags );
+int vscphlp_open( long handle, const char *pHostname, const char *pUsername, const char *pPassword );
+int vscphlp_close( long handle );
+int vscphlp_noop( long handle );
+int vscphlp_clearDaemonEventQueue( long handle );
+int vscphlp_sendEvent( long handle,  const vscpEvent *pEvent );
+int vscphlp_sendEventEx( long handle, const vscpEventEx *pEvent );
 int vscphlp_receiveEvent( long handle, vscpEvent *pEvent );
 int vscphlp_receiveEventEx( long handle, vscpEventEx *pEvent );
 int vscphlp_blockingReceiveEvent( long handle, vscpEvent *pEvent );
@@ -276,14 +275,14 @@ int vscphlp_quitReceiveLoop(const long handle);
 int vscphlp_isDataAvailable( long handle, unsigned int *pCount );
 int vscphlp_getStatus( long handle, VSCPStatus *pStatus );
 int vscphlp_getStatistics( long handle, VSCPStatistics *pStatistics );
-int vscphlp_SetFilter( long handle, const vscpEventFilter *pFilter );
+int vscphlp_setFilter( long handle, const vscpEventFilter *pFilter );
 int vscphlp_getVersion( long handle, unsigned char *pMajorVer,
                                                     unsigned char *pMinorVer,
                                                     unsigned char *pSubMinorVer );
-int vscphlp_GetDLLVersion( long handle, unsigned long *pVersion );
+int vscphlp_getDLLVersion( long handle, unsigned long *pVersion );
 int vscphlp_getVendorString( long handle, char *pVendorStr, int size  );
-int vscphlp_GetDriverInfo( long handle, char *pVendorStr, int size  );
-int vscphlp_ServerShutDown( long handle );
+int vscphlp_getDriverInfo( long handle, char *pVendorStr, int size  );
+int vscphlp_serverShutDown( long handle );
 
 //-------------------------------------------------------------------------
 //                                Variables 
@@ -421,7 +420,13 @@ int vscphlp_writeVscpEventToString( const vscpEvent *pEvent, char *p, int size )
 int vscphlp_writeVscpEventExToString( const vscpEventEx *pEvent, char *p, int size );
 int vscphlp_setVscpEventFromString( vscpEvent *pEvent, const char *p );
 int vscphlp_setVscpEventExFromString( vscpEventEx *pEvent, const char *p );
-
+int vscphlp_setVscpDataFromString( vscpEvent *pEvent, const char *pstr );
+int vscphlp_getVSCPMeasurementAsString( const vscpEvent *pEvent, 
+                                           char *pResult, 
+                                           int size );
+int vscphlp_setVscpDataArrayFromString( unsigned char *pData,
+												unsigned short *psizeData,
+												const char *pstr );
 
 unsigned char vscphlp_getMeasurementDataCoding( const vscpEvent *pEvent );
 unsigned long long vscphlp_getDataCodingBitArray(const unsigned char *pCode, int size );
