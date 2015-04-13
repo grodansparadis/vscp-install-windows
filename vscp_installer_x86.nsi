@@ -413,23 +413,41 @@ Section "Support components (required)" SEC01
 	
 	; Install VSCP Works default configuration file
 	SetShellVarContext current
-;	IfFileExists "$APPDATA\vscpworks\vscpworks.conf" VSCPWORKS_CONF_PRESENT
+	IfFileExists "$APPDATA\vscpworks\vscpworks.conf" VSCPWORKS_CONF_PRESENT
 	CreateDirectory "$APPDATA\vscpworks"
 	SetOutPath "$APPDATA\vscpworks"
-  	File  files\vscpworks\*
+  	File  files\vscpworks\vscpworks.conf
+	goto VSCPWORKS_CONF_INSTALL_HANDLED
 	
-;VSCPWORKS_CONF_PRESENT:	
+VSCPWORKS_CONF_PRESENT:
+	SetOutPath "$APPDATA\vscpworks"
+  	;File /oname=vscpworks.conf.new files\vscpworks\vscpworks.conf
+	Rename "vscpworks.conf" "vscpworks.conf.save"
+	MessageBox MB_OK|MB_ICONINFORMATION "'vscpworks.conf' exist. Saved as 'vscpworks.conf.save'"
+
+VSCPWORKS_CONF_INSTALL_HANDLED:
 	
 	; Install VSCP Works default configuration file
 	SetShellVarContext all
 	CreateDirectory "$APPDATA\VSCP"
-;	CreateDirectory "$APPDATA\certs"
-;	CreateDirectory "$APPDATA\logs"
-;	CreateDirectory "$APPDATA\actions"
-;	CreateDirectory "$APPDATA\tables"
-;	CreateDirectory "$APPDATA\web"
 	SetOutPath "$APPDATA\vscp"
-  	File /r files\vscpd\*
+	IfFileExists "$APPDATA\vscp\vscpd.conf" VSCPD_CONF_PRESENT	
+	goto VSCPD_CONF_INSTALL_HANDLED
+	
+VSCPD_CONF_PRESENT:	
+	; Save the old configuration file(s)
+	;SetOverwrite on
+	Delete "vscpd.conf.save"
+	Rename "vscpd.conf" "vscpd.conf.save"
+	Delete "dm.xml.save"
+	Rename "dm.xml" "dm.xml.save"
+	Delete "variables.xml.save"
+	Rename "variables.xml" "variables.xml.save"
+	;SetOverwrite off
+	MessageBox MB_OK|MB_ICONINFORMATION "'vscpd.conf' exist. Saved as 'vscpd.conf.save'. True for 'variables.xml' and 'dm.xml' also if they exist."
+	
+VSCPD_CONF_INSTALL_HANDLED:
+	File /r files\vscpd\*
 	
 	SetShellVarContext all
 

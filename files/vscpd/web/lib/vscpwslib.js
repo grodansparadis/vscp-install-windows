@@ -1,35 +1,33 @@
 //
 // vscpwslib javascript websocket library
-// Copyright (C) 2012-2014 Ake Hedman, Grodans Paradis AB
+// Copyright (C) 2012-2015 Ake Hedman, Grodans Paradis AB
 // <akhe@grodansparadis.com>
 //
 // Licence:     
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version
-// 2 of the License, or (at your option) any later version.
+// The MIT License (MIT)
+// [OSI Approved License]
+//
+// The MIT License (MIT)
 // 
-// This file is part of the VSCP (http://www.vscp.org) 
+// Copyright (c) 2012-2015 Paradise of the Frog/Grodans Paradis AB
 // 
-// This file is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 // 
-// You should have received a copy of the GNU General Public License
-// along with this file see the file COPYING.  If not, write to
-// the Free Software Foundation, 59 Temple Place - Suite 330,
-// Boston, MA 02111-1307, USA.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 // 
-// As a special exception, if other files instantiate templates or use macros
-// or inline functions from this file, or you compile this file and link it
-// with other works to produce a work based on this file, this file does not
-// by itself cause the resulting work to be covered by the GNU General Public
-// License. However the source code for this file must still be made available
-// in accordance with section (3) of the GNU General Public License.
-// 
-// This exception does not invalidate any other reasons why a work based on
-// this file might be covered by the GNU General Public License.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 // 
 // Alternative licenses for VSCP & Friends may be arranged by contacting 
 // Grodans Paradis AB at info@grodansparadis.com, http://www.grodansparadis.com
@@ -1206,7 +1204,7 @@ function vscpws_getSensorIndexFromDataCoding(data) {
 /////////////////////////////////////////////////////////////////////////////
 // vscpws_measurementClass10Decode
 //
-// data is event data array where first databyte is datacoding
+// data is event data array where first data byte is data coding
 // Always return float.
 
 function vscpws_measurementClass10Decode(data){
@@ -1214,7 +1212,7 @@ function vscpws_measurementClass10Decode(data){
     var rval = 0.0;
     var mask = 0;
         
-    switch ( vscpws_getDatacoding(data[0]) ){
+    switch ( vscpws_getDatacoding( data[0] ) ){
         case 0: // Bits
         case 1: // Bytes
         case 3: // Integer   
@@ -1242,7 +1240,7 @@ function vscpws_measurementClass10Decode(data){
                 var exp = data[1];
                 var newdata = new Array(data.length-2);
                 
-                for (i=2;i<data.length;i++) {
+                for ( i=2;i<data.length;i++ ) {
                     newdata[i-2] = data[i];
                 }
                 
@@ -1251,10 +1249,11 @@ function vscpws_measurementClass10Decode(data){
                 // Handle mantissa
                 if ( exp & 0x80 ) {
                     exp &= 0x7f;
-                    rval = rval * Math.pow(10,exp);
+					rval = rval / Math.pow(10,exp);                    
                 }
                 else { 
-                    rval = rval / Math.pow(10,exp);
+					exp &= 0x7f;
+                    rval = rval * Math.pow(10,exp);
                 }
                 
             }
@@ -1939,16 +1938,16 @@ function vscpws_stateButton( username,        // Username for websocket serever
     this.bState = false;
     
     // Events to send to turn ON
-    this.tansmitt_vscpclass_on = VSCP_CLASS1_CONTROL;     // Default class is CLASS1.CONTROL
-    this.tansmitt_vscptype_on = VSCP_TYPE_CONTROL_TURNON; // Default type is TurnOn
-    this.tansmitt_vscptype_on = new Array(0,0,0);         // Index=0, zone=0, subzone=0
-    this.tansmitt_guid_on = "-";                          // Default GUID is GUID of interface.
+    this.transmit_vscpclass_on = VSCP_CLASS1_CONTROL;     // Default class is CLASS1.CONTROL
+    this.transmit_vscptype_on = VSCP_TYPE_CONTROL_TURNON; // Default type is TurnOn
+    this.transmit_vscptype_on = new Array(0,0,0);         // Index=0, zone=0, subzone=0
+    this.transmit_guid_on = "-";                          // Default GUID is GUID of interface.
     
     // Events to send to turn OFF 
-    this.tansmitt_vscpclass_off = VSCP_CLASS1_CONTROL;      // Default class is CLASS1.CONTROL
-    this.tansmitt_vscptype_off = VSCP_TYPE_CONTROL_TURNOFF; // Default type is TurnOff
-    this.tansmitt_vscptype_on = new Array(0,0,0);           // Index=0, zone=0, subzone=0
-    this.tansmitt_guid_off = "-";                           // Default GUID is GUID of interface.
+    this.transmit_vscpclass_off = VSCP_CLASS1_CONTROL;      // Default class is CLASS1.CONTROL
+    this.transmit_vscptype_off = VSCP_TYPE_CONTROL_TURNOFF; // Default type is TurnOff
+    this.transmit_vscptype_on = new Array(0,0,0);           // Index=0, zone=0, subzone=0
+    this.transmit_guid_off = "-";                           // Default GUID is GUID of interface.
     
     
     // Receive events to confirm Turn ON
@@ -2761,8 +2760,8 @@ function vscpws_stateButton( username,        // Username for websocket serever
     this.image_up.onload = this.onImageLoad.bind(this);
 
     // Set default events
-    this.setOnTransmittEvent();
-    this.setOffTransmittEvent();
+    this.setOnTransmitEvent();
+    this.setOffTransmitEvent();
    
     //retrieve instance name
     this.getInstanceName = function() {
@@ -2777,10 +2776,10 @@ function vscpws_stateButton( username,        // Username for websocket serever
 }
 
 //-----------------------------------------------------------------------------
-// setOnTransmittEvent
+// setOnTransmitEvent
 //-----------------------------------------------------------------------------
 
-vscpws_stateButton.prototype.setOnTransmittEvent = function(vscpclass,
+vscpws_stateButton.prototype.setOnTransmitEvent = function(vscpclass,
                                                                 vscptype,
                                                                 data,        
                                                                 guid ) 
@@ -2794,28 +2793,28 @@ vscpws_stateButton.prototype.setOnTransmittEvent = function(vscpclass,
     guid = typeof guid !== 'undefined' ? guid : "-";
     
     
-    this.tansmitt_vscpclass_on = vscpclass;
-    this.tansmitt_vscptype_on = vscptype;
-    this.tansmitt_data_on = data;
-    this.tansmitt_guid_on = guid;
+    this.transmit_vscpclass_on = vscpclass;
+    this.transmit_vscptype_on = vscptype;
+    this.transmit_data_on = data;
+    this.transmit_guid_on = guid;
 }
 
 //-----------------------------------------------------------------------------
-// setOnTransmittZone
+// setOnTransmitZone
 //-----------------------------------------------------------------------------
 
-vscpws_stateButton.prototype.setOnTransmittZone = function(index,zone,subzone)
+vscpws_stateButton.prototype.setOnTransmitZone = function(index,zone,subzone)
 {
-    this.tansmitt_data_on[0] = typeof index !== 'undefined' ? index : 0;
-    this.tansmitt_data_on[1] = typeof zone !== 'undefined' ? zone : 0;
-    this.tansmitt_data_on[2] = typeof subzone !== 'undefined' ? subzone : 0;
+    this.transmit_data_on[0] = typeof index !== 'undefined' ? index : 0;
+    this.transmit_data_on[1] = typeof zone !== 'undefined' ? zone : 0;
+    this.transmit_data_on[2] = typeof subzone !== 'undefined' ? subzone : 0;
 }
 
 //-----------------------------------------------------------------------------
-// setOffTransmittEvent
+// setOffTransmitEvent
 //-----------------------------------------------------------------------------
 
-vscpws_stateButton.prototype.setOffTransmittEvent = function(vscpclass,
+vscpws_stateButton.prototype.setOffTransmitEvent = function(vscpclass,
                                                                 vscptype,
                                                                 data,        
                                                                 guid) 
@@ -2828,21 +2827,31 @@ vscpws_stateButton.prototype.setOffTransmittEvent = function(vscpclass,
     data = typeof data !== 'undefined' ? data : dataArray;
     guid = typeof guid !== 'undefined' ? guid : "-";
     
-    this.tansmitt_vscpclass_off = vscpclass;
-    this.tansmitt_vscptype_off = vscptype;
-    this.tansmitt_data_off = data;
-    this.tansmitt_guid_off = guid;
+    this.transmit_vscpclass_off = vscpclass;
+    this.transmit_vscptype_off = vscptype;
+    this.transmit_data_off = data;
+    this.transmit_guid_off = guid;
 }
 
 //-----------------------------------------------------------------------------
-// setOffTransmittZone 
+// setOffTransmitZone 
 //-----------------------------------------------------------------------------
 
-vscpws_stateButton.prototype.setOffTransmittZone = function(index,zone,subzone)
+vscpws_stateButton.prototype.setOffTransmitZone = function(index,zone,subzone)
 {
-    this.tansmitt_data_off[0] = typeof index !== 'undefined' ? index : 0;
-    this.tansmitt_data_off[1] = typeof zone !== 'undefined' ? zone : 0;
-    this.tansmitt_data_off[2] = typeof subzone !== 'undefined' ? subzone : 0;
+    this.transmit_data_off[0] = typeof index !== 'undefined' ? index : 0;
+    this.transmit_data_off[1] = typeof zone !== 'undefined' ? zone : 0;
+    this.transmit_data_off[2] = typeof subzone !== 'undefined' ? subzone : 0;
+}
+
+//-----------------------------------------------------------------------------
+// setTransmitBothZone
+//-----------------------------------------------------------------------------
+
+vscpws_stateButton.prototype.setTransmitBothZone = function(index,zone,subzone)
+{
+	this.setOffTransmitZone(index,zone,subzone);
+	this.setOnTransmitZone(index,zone,subzone);
 }
 
 //-----------------------------------------------------------------------------
@@ -2917,6 +2926,15 @@ vscpws_stateButton.prototype.setOffReceiveZone = function(index,zone,subzone)
     this.receive_data_off[2] = typeof subzone !== 'undefined' ? subzone : 0;
 }
 
+//-----------------------------------------------------------------------------
+// setReceiveBothZone
+//-----------------------------------------------------------------------------
+
+vscpws_stateButton.prototype.setReceiveBothZone = function(index,zone,subzone)
+{
+	this.setOffReceiveZone(index,zone,subzone);
+	this.setOnReceiveZone(index,zone,subzone);
+}
 
 //-----------------------------------------------------------------------------
 // setFilter
@@ -3068,20 +3086,20 @@ vscpws_stateButton.prototype.setValue = function(value, bUpdate)
         if (vscpws_debug) console.log("True");
         
         // Send Turn On Event
-        if (this.bConnected && (-1 != this.tansmitt_vscpclass_on ) ) {
-            cmd += this.tansmitt_vscpclass_on.toString() + ",";
-            cmd += this.tansmitt_vscptype_on.toString() + ",";
+        if (this.bConnected && (-1 != this.transmit_vscpclass_on ) ) {
+            cmd += this.transmit_vscpclass_on.toString() + ",";
+            cmd += this.transmit_vscptype_on.toString() + ",";
             cmd += "0,0,"; // obid and timestamp
-            if ("" == this.tansmitt_guid_on) {
+            if ("" == this.transmit_guid_on) {
                 cmd += "-"; // Use daemon interface GUID
             }
             else {
-                cmd += this.tansmitt_guid_on.toString();
+                cmd += this.transmit_guid_on.toString();
             }
             cmd += ",";
-            for (i=0;i<this.tansmitt_data_on.length;i++) {
-                    cmd += this.tansmitt_data_on[i].toString() + ",";
-                    if (i<this.tansmitt_data_on.length-1) cmd += ",";   // No comma for last
+            for (i=0;i<this.transmit_data_on.length;i++) {
+                    cmd += this.transmit_data_on[i].toString();
+                    if ( i < this.transmit_data_on.length-1 ) cmd += ",";   // No comma for last
             }
             
             if (vscpws_debug) console.log(cmd);
@@ -3100,20 +3118,20 @@ vscpws_stateButton.prototype.setValue = function(value, bUpdate)
         if (vscpws_debug) console.log("False");
         
         // Send Turn Off Event
-        if (this.bConnected && (-1 != this.tansmitt_vscpclass_off)) {
-            cmd += this.tansmitt_vscpclass_off.toString() + ",";
-            cmd += this.tansmitt_vscptype_off.toString() + ",";
+        if (this.bConnected && (-1 != this.transmit_vscpclass_off)) {
+            cmd += this.transmit_vscpclass_off.toString() + ",";
+            cmd += this.transmit_vscptype_off.toString() + ",";
             cmd += "0,0,"; // obid and timestamp
-            if ("" == this.tansmitt_guid_off) {
+            if ("" == this.transmit_guid_off) {
                 cmd += "-"; // Use daemon interface GUID
             }
             else {
-                cmd += this.tansmitt_guid_off.toString();
+                cmd += this.transmit_guid_off.toString();
             }
             cmd += ",";
-            for (i=0;i<this.tansmitt_data_off.length;i++) {
-                    cmd += this.tansmitt_data_off[i].toString() + ",";
-                    if (i<this.tansmitt_data_off.length-1) cmd += ",";   // No comma for last
+            for (i=0;i<this.transmit_data_off.length;i++) {
+                    cmd += this.transmit_data_off[i].toString();
+                    if (i<this.transmit_data_off.length-1) cmd += ",";   // No comma for last
             }
             
             if (vscpws_debug) console.log(cmd);
@@ -3205,7 +3223,8 @@ vscpws_stateButton.prototype.onVSCPOpen = function()
 {
     //if (vscpws_debug) console.log('Open VSCP websocket');
     //this.bConnected = true;
-    //this.socket_vscp.send("C;" + "open");
+    
+	this.socket_vscp.send("C;" + "challenge");
    
     // Draw the state
     this.draw();
@@ -3237,8 +3256,7 @@ vscpws_stateButton.prototype.onVSCPMessage = function(msg)
     if (vscpws_debug) console.log('onVSCPMessage -' + this.instanceName + " " + msg.data);
 	
     msgitems = msg.data.split(';');
-    
-				
+    			
     if ("+" == msgitems[0]){        // check for positive reply
     
         if (vscpws_debug) console.log("Positive reply "+msg.data);
@@ -3250,7 +3268,7 @@ vscpws_stateButton.prototype.onVSCPMessage = function(msg)
 			this.socket_vscp.send(msg);
         }
         else if ( "AUTH1" == msgitems[1] ) {
-        
+			        
             // We are authenticated and ready to go to work         
             this.socket_vscp.send("C;" + "OPEN");
    
@@ -3270,7 +3288,7 @@ vscpws_stateButton.prototype.onVSCPMessage = function(msg)
             // Close confirmation => We are NOT connected
             this.bConnected = false;
         }
-        else if ("READVAR" == msgitems[1] && (2 == msgitems[2])){
+        else if ("READVAR" == msgitems[1] && (2 == msgitems[3])){
             if ( ("true" == msgitems[4].toLowerCase()) && 
                     (false == this.bState )) {
                 // We have a match for ON
@@ -3497,7 +3515,7 @@ function vscpws_simpleTextEvent( username,           // Username for websocket s
 }
 
 //-----------------------------------------------------------------------------
-// onVSCPOpen
+// setExtraParameters
 //-----------------------------------------------------------------------------
 
 vscpws_simpleTextEvent.prototype.setExtraParameters = 
@@ -3527,6 +3545,8 @@ vscpws_simpleTextEvent.prototype.onVSCPOpen = function()
     
     // Set filter
     //this.setFilter();
+	
+	this.socket_vscp.send("C;" + "challenge");
 };
 
 //-----------------------------------------------------------------------------
@@ -4056,7 +4076,7 @@ vscpws_thermometerCelsius.prototype.draw = function()
 };
 
 //-----------------------------------------------------------------------------
-// onVSCPOpen
+// setExtraParameters
 //-----------------------------------------------------------------------------
 
 vscpws_thermometerCelsius.prototype.setExtraParameters = 
@@ -4085,6 +4105,8 @@ vscpws_thermometerCelsius.prototype.onVSCPOpen = function()
     
     // Set filter
     //this.setFilter();
+	
+	this.socket_vscp.send("C;" + "challenge");
     
     this.draw();
 };
@@ -4552,7 +4574,7 @@ vscpws_speedometerCelius.prototype.draw = function()
 };
 
 //-----------------------------------------------------------------------------
-// onVSCPOpen
+// setExtraParameters
 //-----------------------------------------------------------------------------
 
 vscpws_speedometerCelius.prototype.setExtraParameters = 
@@ -4591,6 +4613,8 @@ vscpws_speedometerCelius.prototype.onVSCPOpen = function()
     
     // Set filter
     //this.setFilter();
+	
+	this.socket_vscp.send("C;" + "challenge");
     
     this.draw();
 };
@@ -5034,7 +5058,7 @@ function vscpws_Event( username,            // Username for websocket serever
 }
 
 //-----------------------------------------------------------------------------
-// onVSCPOpen
+// isOpen
 //-----------------------------------------------------------------------------
 
 vscpws_Event.prototype.isOpen = function() 
@@ -5048,6 +5072,8 @@ vscpws_Event.prototype.isOpen = function()
 
 vscpws_Event.prototype.onVSCPOpen = function() 
 {
+	this.socket_vscp.send("C;" + "challenge");
+	
     if (this.elementId) document.getElementById(this.elementId).textContent = 
             " undefined ";
     if (vscpws_debug) console.log('Open VSCP websocket');
@@ -5372,7 +5398,7 @@ function vscpws_Variable( username,             // Username for websocket server
 }
 
 //-----------------------------------------------------------------------------
-// onVSCPOpen
+// isOpen
 //-----------------------------------------------------------------------------
 
 vscpws_Variable.prototype.isOpen = function() 
@@ -5386,6 +5412,8 @@ vscpws_Variable.prototype.isOpen = function()
 
 vscpws_Variable.prototype.onVSCPOpen = function() 
 {
+	this.socket_vscp.send("C;" + "challenge");
+	
     if (this.elementId) document.getElementById(this.elementId).textContent = 
             " undefined ";
     if (vscpws_debug) console.log('Open VSCP websocket');
@@ -5763,7 +5791,7 @@ function vscpws_Table( username,                // Username for websocket server
 }
 
 //-----------------------------------------------------------------------------
-// onVSCPOpen
+// isOpen
 //-----------------------------------------------------------------------------
 
 vscpws_Table.prototype.isOpen = function() 
@@ -5781,6 +5809,8 @@ vscpws_Table.prototype.onVSCPOpen = function()
             " undefined ";
     if (vscpws_debug) console.log('Open VSCP websocket');
     
+	this.socket_vscp.send("C;" + "challenge");
+	
     // Start monitoring
     //this.SetInterval( this.interval );
 };
