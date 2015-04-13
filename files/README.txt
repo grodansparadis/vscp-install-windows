@@ -1,4 +1,4 @@
-VSCP & Friends Version 1.0.1.0 - Neon
+VSCP & Friends Version 1.0.1 - Neon
 =====================================
 Copyright (C) 2000-2015 Grodans Paradis AB / Paradise of the Frog.
 http://www.paradiseofthefrog.com, info@paradiseofthefrog.com
@@ -7,7 +7,13 @@ This is the 1.0.1 Neon release of VSCP & Friends.
 
 -----------------------------------------------------------------------------------------------
 If you don't want to read a lot of text but rather want to test as soon as possible go here 
-http://www.vscp.org/docs/vscpd/doku.php?id=setting_up_the_system_on_windows NOW.
+http://www.vscp.org/docs/vscpd/doku.php?id=setting_up_the_system_on_windows. 
+
+You find the
+
+"The 5 second I don't want to read a shit walk through"
+
+there to if you are like most people. 
 -----------------------------------------------------------------------------------------------
 
 This is mainly a bug fix release of VSCP & Friends and it fixes many bugs and instabilities
@@ -33,12 +39,15 @@ http://www.grodansparadis.com/frankfurt/rs232/frankfurt-rs232.html. While you ar
 all the other VSCP modules that are available from the Paradise of the Frog.
 
 So there is a lot for stuff available. If you want to support this development the best thing
-you can do is to buy something from the Frogshop, http://www.frogshop.se, or to contribute code or
-bugfixes.
+you can do is to buy something from the Frogshop, http://www.frogshop.se, or contribute code or
+report/fix bugs.
+
+A special thanks to Andreas Merkle for code review and many fixes. Thanks also to everyone reporting 
+bugs and "special features". 
 
 Enjoy!
 
-LOS, Sweden 2015-04-11
+LOS, Sweden 2015-04-13
 Ake Hedman
 Grodans Paradis AB / Paradise of the Frog
 
