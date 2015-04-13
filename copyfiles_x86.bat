@@ -52,6 +52,7 @@ copy "..\vscp_software\src\vscp\helperlib\windows\release\vscphelper.dll" files\
 copy "..\vscp_software\src\vscp\helperlib\windows\release\vscphelper.lib" files\lib\x86
 copy "..\vscp_software\src\vscp\helperlib\windows\release\vscphelper.lib" files\lib\x86
 copy "..\vscp_software\src\vscp\helperlib\vscphelperlib.h" files\lib\x86
+copy "..\vscp_software\src\vscp\helperlib\vscphelperlib.h" files\include
 
 @REM Level I Drivers
 copy "..\vscp_software\src\vscp\drivers\level1\apox\win32\release\vscpl1_apoxdrv.dll" files\system

@@ -517,7 +517,6 @@ Section "VSCP Server" SEC05
   
 	SetOutPath "$INSTDIR"
 	!insertmacro OpenUninstallLog	
-;	!insertmacro InstallFile files\x86\.exe
 	!insertmacro InstallFile files\x86\vscpd.exe
 	!insertmacro CloseUninstallLog 
 	
@@ -532,7 +531,7 @@ Section "Drivers" SEC06
  
 	SectionIn 1 2 3 4
   
-	SetOutPath "$INSTDIR"
+	SetOutPath "$INSTDIR\drivers"
 	!insertmacro OpenUninstallLog	
 	!insertmacro InstallFolder files\drivers\x86
 	!insertmacro CloseUninstallLog
@@ -546,9 +545,12 @@ Section "Development tools & examples" SEC07
   
 	SetOutPath "$INSTDIR"
 	!insertmacro InstallFolder files\examples
+	SetOutPath "$INSTDIR"
 	!insertmacro InstallFolder files\include
+	SetOutPath "$INSTDIR\lib"
 	!insertmacro InstallFolder files\lib\x86
-;	!insertmacro InstallFolder files\cpp
+	SetOutPath "$INSTDIR"
+	!insertmacro InstallFolder files\cpp
 ;	RegDLL "$INSTDIR\lib\axvlc.dll"
  
 SectionEnd 
