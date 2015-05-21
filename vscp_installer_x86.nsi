@@ -533,7 +533,8 @@ Section "Drivers" SEC06
   
 	SetOutPath "$INSTDIR\drivers"
 	!insertmacro OpenUninstallLog	
-	!insertmacro InstallFolder files\drivers\x86
+	!insertmacro InstallFolder files\drivers\x86\level1
+	!insertmacro InstallFolder files\drivers\x86\level2
 	!insertmacro CloseUninstallLog
  
 SectionEnd
@@ -548,7 +549,10 @@ Section "Development tools & examples" SEC07
 	SetOutPath "$INSTDIR"
 	!insertmacro InstallFolder files\include
 	SetOutPath "$INSTDIR\lib"
-	!insertmacro InstallFolder files\lib\x86
+;	!insertmacro InstallFolder files\lib\x86
+    !insertmacro InstallFile files\lib\x86\vscphelper.dll
+	!insertmacro InstallFile files\lib\x86\vscphelper.lib
+	!insertmacro InstallFile files\lib\x86\vscphelperlib.h
 	SetOutPath "$INSTDIR"
 	!insertmacro InstallFolder files\cpp
 ;	RegDLL "$INSTDIR\lib\axvlc.dll"
@@ -773,6 +777,7 @@ UninstallEnd:
 	RMDir /r "$INSTDIR\examples\"
 	RMDir /r "$INSTDIR\include\"
 	RMDir /r "$INSTDIR\lib\"
+	RMDir /r "$INSTDIR\cpp\"
 	RMDir /r "$INSTDIR\work\"
 	RMDir /r "$INSTDIR\vscpd\"
 	
@@ -785,7 +790,7 @@ UninstallEnd:
 	RMDir /r "$APPDATA\logs\"
 	RMDir /r "$APPDATA\web\"
 	RMDir /r "$APPDATA\tables\"
-	
+	RMDir /r "$APPDATA\simulations\"
 	
 	Push "\"
 	Call un.RemoveEmptyDirs
