@@ -32,7 +32,7 @@
  
 Name "${PRODUCT_GROUP} ${PRODUCT_NAME} ${PRODUCT_VERSION}"
 OutFile vscp-${PRODUCT_VERSION}-x64.exe
-InstallDir "$PROGRAMFILES\VSCP"
+InstallDir "$PROGRAMFILES64\VSCP"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 !ifdef NSIS_LZMA_COMPRESS_WHOLE
 SetCompressor lzma
@@ -360,17 +360,21 @@ Section "Support components (required)" SEC01
  
 	!insertmacro OpenUninstallLog
  
-	!insertmacro InstallFile files\x64\vscpworks.exe
 	!insertmacro InstallFile files\*.txt
 	!insertmacro InstallFile files\x64\mkpasswd.exe
 	!insertmacro InstallFile files\x64\iflist.exe
+	!insertmacro InstallFile files\x64\vscpcmd.exe
+	!insertmacro InstallFile files\system\x64\libeay32.dll
+	!insertmacro InstallFile files\system\x64\libssl32.dll
+	!insertmacro InstallFile files\system\x64\ssleay32.dll
+	!insertmacro InstallFile files\system\x64\vscphelper.dll
  
     !insertmacro InstallFolder files\doc
 	!insertmacro InstallFolder files\work
 	!insertmacro InstallFolder files\drivers
 	!insertmacro InstallFolder files\examples
 	!insertmacro InstallFolder files\include
-	!insertmacro InstallFolder files\lib
+	;!insertmacro InstallFolder files\lib
   
 	; Shortcut to VSCP web site
 	WriteIniStr "$INSTDIR\VSCP & Friends Website.url" "InternetShortcut" "URL" \
@@ -411,7 +415,7 @@ Section "Support components (required)" SEC01
 	SetOutPath $SYSDIR
   
 	; Install wx dll's
-  	//File  files\wx\x64\*
+  	;File  files\wx\x64\*
 	
 	SetOutPath "$INSTDIR"
 	
@@ -452,6 +456,7 @@ VSCPD_CONF_PRESENT:
 	
 VSCPD_CONF_INSTALL_HANDLED:
 	File /r files\vscpd\*
+	Rename vscpd32.conf vscpd.conf
 	
 	SetShellVarContext all
 
@@ -535,10 +540,9 @@ Section "Drivers" SEC06
  
 	SectionIn 1 2 3 4
   
-	SetOutPath "$INSTDIR\drivers"
+	SetOutPath "$INSTDIR\"
 	!insertmacro OpenUninstallLog	
-	!insertmacro InstallFolder files\drivers\x64\level1
-	!insertmacro InstallFolder files\drivers\x64\level2
+	!insertmacro InstallFolder files\drivers
 	!insertmacro CloseUninstallLog
  
 SectionEnd
@@ -552,13 +556,10 @@ Section "Development tools & examples" SEC07
 	!insertmacro InstallFolder files\examples
 	SetOutPath "$INSTDIR"
 	!insertmacro InstallFolder files\include
-	SetOutPath "$INSTDIR\lib"
-;	!insertmacro InstallFolder files\lib\x64
-    !insertmacro InstallFile files\lib\x64\vscphelper.dll
-	!insertmacro InstallFile files\lib\x64\vscphelper.lib
-	!insertmacro InstallFile files\lib\x64\vscphelperlib.h
+	;SetOutPath "$INSTDIR\lib"
+	SetOutPath "$INSTDIR\"
+	!insertmacro InstallFolder files\lib
 	SetOutPath "$INSTDIR"
-	!insertmacro InstallFolder files\cpp
 ;	RegDLL "$INSTDIR\lib\axvlc.dll"
  
 SectionEnd 
@@ -624,13 +625,14 @@ FunctionEnd
 Section -Post
  
 	; Install VC runtimes
-	ExecWait '"$INSTDIR\work\vcredist_x64.exe"'
+	ExecWait '"$INSTDIR\work\vc_redist.x64.exe"'
 	
 	; Install winpcap library
 	ExecWait '"$INSTDIR\work\WinPcap_4_1_3.exe"'
 	
 	; Remove the work folder
 	RMDir /r $INSTDIR\work
+	RMDir /r "$INSTDIR\vscpd\"
 	
 	WriteUninstaller "$INSTDIR\uninstall.exe"
 	WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "InstallDir" $INSTDIR
@@ -747,8 +749,9 @@ Section "Uninstall" SEC91
 ;  !insertmacro MacroAllExtensions UnRegisterExtensionSection
 ;  !insertmacro DeleteContextMenu "Directory"
  
- 
-	RMDir "$SMPROGRAMS\VSCP"
+	Delete "$INSTDIR\*"
+    Delete "$INSTDIR\*.dll"
+	RMDir "$SMPROGRAMS\VSCP\*"
 	RMDir /r $SMPROGRAMS\VSCP
  
 	FileOpen $UninstallLog "$INSTDIR\uninstall.log" r

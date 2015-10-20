@@ -456,6 +456,7 @@ VSCPD_CONF_PRESENT:
 	
 VSCPD_CONF_INSTALL_HANDLED:
 	File /r files\vscpd\*
+	Rename vscpd32.conf vscpd.conf
 	
 	SetShellVarContext all
 
@@ -748,8 +749,9 @@ Section "Uninstall" SEC91
 ;  !insertmacro MacroAllExtensions UnRegisterExtensionSection
 ;  !insertmacro DeleteContextMenu "Directory"
  
- 
-	RMDir "$SMPROGRAMS\VSCP"
+	Delete "$INSTDIR\*"
+    Delete "$INSTDIR\*.dll"
+	RMDir "$SMPROGRAMS\VSCP\*"
 	RMDir /r $SMPROGRAMS\VSCP
  
 	FileOpen $UninstallLog "$INSTDIR\uninstall.log" r
