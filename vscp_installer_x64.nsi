@@ -368,6 +368,7 @@ Section "Support components (required)" SEC01
 	!insertmacro InstallFile files\system\x64\libssl32.dll
 	!insertmacro InstallFile files\system\x64\ssleay32.dll
 	!insertmacro InstallFile files\system\x64\vscphelper.dll
+	!insertmacro InstallFile files\system\x64\libexpat.dll
  
     !insertmacro InstallFolder files\doc
 	!insertmacro InstallFolder files\work
