@@ -360,17 +360,21 @@ Section "Support components (required)" SEC01
  
 	!insertmacro OpenUninstallLog
  
-	!insertmacro InstallFile files\x86\vscpworks.exe
 	!insertmacro InstallFile files\*.txt
 	!insertmacro InstallFile files\x86\mkpasswd.exe
 	!insertmacro InstallFile files\x86\iflist.exe
+	!insertmacro InstallFile files\x86\vscpcmd.exe
+	!insertmacro InstallFile files\system\x86\libeay32.dll
+	!insertmacro InstallFile files\system\x86\libssl32.dll
+	!insertmacro InstallFile files\system\x86\ssleay32.dll
+	!insertmacro InstallFile files\system\x86\vscphelper.dll
  
     !insertmacro InstallFolder files\doc
 	!insertmacro InstallFolder files\work
 	!insertmacro InstallFolder files\drivers
 	!insertmacro InstallFolder files\examples
 	!insertmacro InstallFolder files\include
-	!insertmacro InstallFolder files\lib
+	;!insertmacro InstallFolder files\lib
   
 	; Shortcut to VSCP web site
 	WriteIniStr "$INSTDIR\VSCP & Friends Website.url" "InternetShortcut" "URL" \
@@ -535,10 +539,9 @@ Section "Drivers" SEC06
  
 	SectionIn 1 2 3 4
   
-	SetOutPath "$INSTDIR\drivers"
+	SetOutPath "$INSTDIR\"
 	!insertmacro OpenUninstallLog	
-	!insertmacro InstallFolder files\drivers\x86
-	;!insertmacro InstallFolder files\drivers\x86
+	!insertmacro InstallFolder files\drivers
 	!insertmacro CloseUninstallLog
  
 SectionEnd
@@ -552,13 +555,10 @@ Section "Development tools & examples" SEC07
 	!insertmacro InstallFolder files\examples
 	SetOutPath "$INSTDIR"
 	!insertmacro InstallFolder files\include
-	SetOutPath "$INSTDIR\lib"
-;	!insertmacro InstallFolder files\lib\x86
-    !insertmacro InstallFile files\lib\x86\vscphelper.dll
-	!insertmacro InstallFile files\lib\x86\vscphelper.lib
-	!insertmacro InstallFile files\lib\x86\vscphelperlib.h
+	;SetOutPath "$INSTDIR\lib"
+	SetOutPath "$INSTDIR\"
+	!insertmacro InstallFolder files\lib
 	SetOutPath "$INSTDIR"
-	;!insertmacro InstallFolder files\cpp
 ;	RegDLL "$INSTDIR\lib\axvlc.dll"
  
 SectionEnd 
@@ -624,13 +624,14 @@ FunctionEnd
 Section -Post
  
 	; Install VC runtimes
-	ExecWait '"$INSTDIR\work\vcredist_x86.exe"'
+	ExecWait '"$INSTDIR\work\vc_redist.x86.exe"'
 	
 	; Install winpcap library
 	ExecWait '"$INSTDIR\work\WinPcap_4_1_3.exe"'
 	
 	; Remove the work folder
 	RMDir /r $INSTDIR\work
+	RMDir /r "$INSTDIR\vscpd\"
 	
 	WriteUninstaller "$INSTDIR\uninstall.exe"
 	WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "InstallDir" $INSTDIR

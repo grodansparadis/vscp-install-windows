@@ -44,7 +44,8 @@ extern "C" {
 
 long WINAPI EXPORT vscphlp_newSession(void);
 void WINAPI EXPORT vscphlp_closeSession(long handle);
-int WINAPI EXPORT vscphlp_setResponseTimeout(long handle, unsigned char timeout );
+int WINAPI EXPORT vscphlp_setResponseTimeout(long handle, unsigned long timeout );
+int WINAPI EXPORT vscphlp_setAfterCommandSleep(long handle, unsigned short sleeptime );
 int WINAPI EXPORT vscphlp_isConnected(const long handle);
 int WINAPI EXPORT vscphlp_doCommand( long handle, const char * cmd );
 int WINAPI EXPORT vscphlp_checkReply( long handle, int bClear );
@@ -254,7 +255,8 @@ void WINAPI EXPORT vscphlp_setVscpPriorityEx( vscpEventEx *pEvent, unsigned char
 
 long vscphlp_newSession(void);
 void vscphlp_closeSession(long handle);
-int vscphlp_setResponseTimeout(long handle, unsigned char timeout );
+int vscphlp_setResponseTimeout(long handle, unsigned long timeout );
+int vscphlp_setAfterCommandSleep(long handle, unsigned short sleeptime );
 int vscphlp_isConnected(const long handle);
 int vscphlp_doCommand( long handle, const char * cmd );
 int vscphlp_checkReply( long handle, int bClear );
@@ -271,7 +273,6 @@ int vscphlp_receiveEventEx( long handle, vscpEventEx *pEvent );
 int vscphlp_blockingReceiveEvent( long handle, vscpEvent *pEvent );
 int vscphlp_blockingReceiveEventEx( long handle, vscpEventEx *pEvent );
 int vscphlp_enterReceiveLoop(const long handle);
-int vscphlp_quitReceiveLoop(const long handle);
 int vscphlp_isDataAvailable( long handle, unsigned int *pCount );
 int vscphlp_getStatus( long handle, VSCPStatus *pStatus );
 int vscphlp_getStatistics( long handle, VSCPStatistics *pStatistics );

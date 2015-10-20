@@ -1,9 +1,9 @@
-VSCP & Friends Version 1.0.1 - Neon
+VSCP & Friends Version 1.1.0 - Sodium
 =====================================
 Copyright (C) 2000-2015 Grodans Paradis AB / Paradise of the Frog.
 http://www.paradiseofthefrog.com, info@paradiseofthefrog.com
 
-This is the 1.0.1 Neon release of VSCP & Friends. 
+This is the 1.1.0 Sodium release of VSCP & Friends. 
 
 -----------------------------------------------------------------------------------------------
 If you don't want to read a lot of text but rather want to test as soon as possible go here 
@@ -16,40 +16,45 @@ You find the
 there to if you are like most people. 
 -----------------------------------------------------------------------------------------------
 
-This is mainly a bug fix release of VSCP & Friends and it fixes many bugs and instabilities
-introduced by the big changes made when the communication engine was changed before last release.
+There are also plenty of new stuff added in this release. Many, many bugs are fixed and other things are
+improved. Some major things are
 
-There are also plenty of new stuff added in this release. 
+- mqtt driver fully rewritten and Windows version added.
 
-One driver has been added for windows. This is the vscpl2_sim driver which is now available for both 
-windows and Linux and can be used as a device when testing a VSCP system without having physical 
-hardware. This driver is installed by default and the web examples interact with this driver today. 
-You can read more about it here
-http://www.vscp.org/docs/vscpd/doku.php?id=level2_driver_simulation
+- Fixed problem with time zone during summer saving time which caused calculations to be off.
 
-The can4vscp driver has been around for a while now but it now fully supports the VSCP serial standard
-which you can find described here 
-http://www.vscp.org/docs/vscpspec/doku.php?id=physical_level_lower_level_protocols#vscp_over_a_serial_channel_rs-232
-The driver is documented here
-http://www.vscp.org/docs/vscpd/doku.php?id=level1_driver_can4vscp
+- Refresh problem for websocket pages fixed.
 
-Grodans Paradis AB sells a module that uses this driver, Frankfurt RS-232, and which can be used as
-a low cost interface to a CAN4VSCP bus. You can find more information about this hardware here
-http://www.grodansparadis.com/frankfurt/rs232/frankfurt-rs232.html. While you are there also checkout 
-all the other VSCP modules that are available from the Paradise of the Frog.
+- Added switch to daemon config setting 'disableauthentication' to make it possible to
+  disable web authentication.
 
-So there is a lot for stuff available. If you want to support this development the best thing
-you can do is to buy something from the Frogshop, http://www.frogshop.se, or contribute code or
-report/fix bugs.
+- Web authentication was broken. Fixed.
 
-A special thanks to Andreas Merkle for code review and many fixes. Thanks also to everyone reporting 
-bugs and "special features". 
+- Fixed problem on Linux preventing web widgets working correctly.
+
+- fgcolor and background colours can now be set directly in mdf for registry rows in the vscp works
+  configuration window.
+
+- VSCP Works now support block and dmmatrix1 register types in the mdf file. 
+  See http://www.vscp.org/docs/vscpspec/doku.php?id=module_description_file&#register_types
+  
+- REST interface completly worked through.
+
+- Security problem when loadeing page sin web i/f fixed.
+
+- Wizard for CANAL driver setup implemented.
+
+- CAN4VSCP driver major update with new features.
+
+Paradise of the Frog AB sell low cost hardware that is VSCP enabled. There is a lot for stuff available 
+and more is on the way. If you want to support this development the best thing you can do is to buy something 
+from the Frogshop, http://www.frogshop.se, or contribute code or report/fix bugs.
 
 Enjoy!
 
-LOS, Sweden 2015-04-13
+LOS, Sweden 2015-10-20
 Ake Hedman
-Grodans Paradis AB / Paradise of the Frog
+Paradise of the Frog AB
 
 
 
