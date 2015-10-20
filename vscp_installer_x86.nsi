@@ -8,9 +8,9 @@
 
 !define PRODUCT_NAME "VSCP & friends"
 ;!define PRODUCT_VERSION '${VERSION}'
-!define PRODUCT_VERSION '1.0.1'
-!define PRODUCT_GROUP "Grodans Paradis AB"
-!define PRODUCT_PUBLISHER "Grodans Paradis AB"
+!define PRODUCT_VERSION '1.1.0'
+!define PRODUCT_GROUP "Paradise of the Frog AB"
+!define PRODUCT_PUBLISHER "Paradise of the Frog AB"
 !define PRODUCT_WEB_SITE "http://www.vscp.org"
 !define PRODUCT_DIR_REGKEY "Software\VSCP"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -367,6 +367,10 @@ Section "Support components (required)" SEC01
  
     !insertmacro InstallFolder files\doc
 	!insertmacro InstallFolder files\work
+	!insertmacro InstallFolder files\drivers
+	!insertmacro InstallFolder files\examples
+	!insertmacro InstallFolder files\include
+	!insertmacro InstallFolder files\lib
   
 	; Shortcut to VSCP web site
 	WriteIniStr "$INSTDIR\VSCP & Friends Website.url" "InternetShortcut" "URL" \
@@ -407,7 +411,7 @@ Section "Support components (required)" SEC01
 	SetOutPath $SYSDIR
   
 	; Install wx dll's
-  	File  files\wx\x86\*
+  	;File  files\wx\x86\*
 	
 	SetOutPath "$INSTDIR"
 	
@@ -533,8 +537,8 @@ Section "Drivers" SEC06
   
 	SetOutPath "$INSTDIR\drivers"
 	!insertmacro OpenUninstallLog	
-	!insertmacro InstallFolder files\drivers\x86\level1
-	!insertmacro InstallFolder files\drivers\x86\level2
+	!insertmacro InstallFolder files\drivers\x86
+	;!insertmacro InstallFolder files\drivers\x86
 	!insertmacro CloseUninstallLog
  
 SectionEnd
@@ -554,7 +558,7 @@ Section "Development tools & examples" SEC07
 	!insertmacro InstallFile files\lib\x86\vscphelper.lib
 	!insertmacro InstallFile files\lib\x86\vscphelperlib.h
 	SetOutPath "$INSTDIR"
-	!insertmacro InstallFolder files\cpp
+	;!insertmacro InstallFolder files\cpp
 ;	RegDLL "$INSTDIR\lib\axvlc.dll"
  
 SectionEnd 

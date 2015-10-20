@@ -16,3 +16,11 @@
 
 - VSCP Works now support block and dmmatrix1 register types in the mdf file. 
   See http://www.vscp.org/docs/vscpspec/doku.php?id=module_description_file&#register_types
+  
+- REST interface completly worked through.
+
+- Security problem when loadeing page sin web i/f fixed.
+
+- Wizard for CANAL driver setup implemented.
+
+- CAN4VSCP driver major update with new features.

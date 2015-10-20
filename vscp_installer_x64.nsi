@@ -8,9 +8,9 @@
 
 !define PRODUCT_NAME "VSCP & friends"
 ;!define PRODUCT_VERSION '${VERSION}'
-!define PRODUCT_VERSION '1.0.1'
-!define PRODUCT_GROUP "Grodans Paradis AB"
-!define PRODUCT_PUBLISHER "Grodans Paradis AB"
+!define PRODUCT_VERSION '1.1.0'
+!define PRODUCT_GROUP "Paradise of the Frog AB"
+!define PRODUCT_PUBLISHER "Paradise of the Frog AB"
 !define PRODUCT_WEB_SITE "http://www.vscp.org"
 !define PRODUCT_DIR_REGKEY "Software\VSCP"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -367,6 +367,10 @@ Section "Support components (required)" SEC01
  
     !insertmacro InstallFolder files\doc
 	!insertmacro InstallFolder files\work
+	!insertmacro InstallFolder files\drivers
+	!insertmacro InstallFolder files\examples
+	!insertmacro InstallFolder files\include
+	!insertmacro InstallFolder files\lib
   
 	; Shortcut to VSCP web site
 	WriteIniStr "$INSTDIR\VSCP & Friends Website.url" "InternetShortcut" "URL" \
@@ -407,7 +411,7 @@ Section "Support components (required)" SEC01
 	SetOutPath $SYSDIR
   
 	; Install wx dll's
-  	File  files\wx\x64\*
+  	//File  files\wx\x64\*
 	
 	SetOutPath "$INSTDIR"
 	
