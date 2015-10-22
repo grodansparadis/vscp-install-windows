@@ -46,6 +46,9 @@ improved. Some major things are
 
 - CAN4VSCP driver major update with new features.
 
+- It is possible to ente a server name in the VSCP daemon configuration file that gives a symbolic
+	name for the server.
+
 -----------------------------------------------------------------------------------------------
 
 Do you want to support this project?

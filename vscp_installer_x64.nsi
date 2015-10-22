@@ -15,7 +15,7 @@
 !define PRODUCT_DIR_REGKEY "Software\VSCP"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
-!define PRODUCT_ID "{309E1C57-5DE3-442e-8DB5-6417CFA53799}"
+!define PRODUCT_ID "{C3B6387C-7855-431B-8405-29AAC29C0BA7}" 
  
 !define MUI_LANGDLL_REGISTRY_ROOT "HKLM"
 !define MUI_LANGDLL_REGISTRY_KEY "${PRODUCT_DIR_REGKEY}"
@@ -457,7 +457,7 @@ VSCPD_CONF_PRESENT:
 	
 VSCPD_CONF_INSTALL_HANDLED:
 	File /r files\vscpd\*
-	Rename vscpd32.conf vscpd.conf
+	Rename vscpd64.conf vscpd.conf
 	
 	SetShellVarContext all
 
