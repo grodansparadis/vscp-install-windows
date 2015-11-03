@@ -6,13 +6,13 @@
  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-!define PRODUCT_NAME "VSCP & friends"
+!define PRODUCT_NAME "VSCP & friends 64-bit"
 ;!define PRODUCT_VERSION '${VERSION}'
 !define PRODUCT_VERSION '1.1.0'
 !define PRODUCT_GROUP "Paradise of the Frog AB"
 !define PRODUCT_PUBLISHER "Paradise of the Frog AB"
 !define PRODUCT_WEB_SITE "http://www.vscp.org"
-!define PRODUCT_DIR_REGKEY "Software\VSCP"
+!define PRODUCT_DIR_REGKEY "Software\VSCP64"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 !define PRODUCT_ID "{C3B6387C-7855-431B-8405-29AAC29C0BA7}" 
@@ -568,33 +568,60 @@ SectionEnd
  
 ; Installer section descriptions
  
-!insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+	!insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
  
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC01} \
+	!insertmacro MUI_DESCRIPTION_TEXT ${SEC01} \
     "Required low level drivers and components."
  
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC02} \
+	!insertmacro MUI_DESCRIPTION_TEXT ${SEC02} \
     "Adds icons to your start menu for easy access"
  
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC03} \
+	!insertmacro MUI_DESCRIPTION_TEXT ${SEC03} \
     "Adds icon to your desktop for easy access"
  
- !insertmacro MUI_DESCRIPTION_TEXT ${SEC04} \
+	!insertmacro MUI_DESCRIPTION_TEXT ${SEC04} \
     "Components needed to use the VSCP Works client application"
 	
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC05} \
+	!insertmacro MUI_DESCRIPTION_TEXT ${SEC05} \
     "Components needed to use the VSCP Server."
 	
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC06} \
+	!insertmacro MUI_DESCRIPTION_TEXT ${SEC06} \
 	"Drivers"
 		
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC07} \
+	!insertmacro MUI_DESCRIPTION_TEXT ${SEC07} \
 	"Components needed for development."		
  
-!insertmacro MUI_FUNCTION_DESCRIPTION_END
+	!insertmacro MUI_FUNCTION_DESCRIPTION_END
  
+Function .onInit
  
+  ReadRegStr $R0 HKLM \
+  "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PROGRAM_NAME}" \
+  "UninstallString"
+  StrCmp $R0 "" done
  
+  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
+  "${PROGRAM_NAME} is already installed. $\n$\nClick `OK` to remove the \
+  previous version or `Cancel` to cancel this upgrade." \
+  IDOK uninst
+  Abort
+ 
+;Run the uninstaller
+uninst:
+  ClearErrors
+  ExecWait '$R0 _?=$INSTDIR' ;Do not copy the uninstaller to a temp file
+ 
+  IfErrors no_remove_uninstaller done
+    ;You can either use Delete /REBOOTOK in the uninstaller or add some code
+    ;here to remove the uninstaller. Use a registry key to check
+    ;whether the user has chosen to uninstall. If you are using an uninstaller
+    ;components page, make sure all sections are uninstalled.
+  no_remove_uninstaller:
+ 
+done:
+ 
+FunctionEnd 
+/* 
 Function .onInit
  
 	ReadRegStr $R0  ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" \
@@ -618,14 +645,17 @@ Function .onInit
 done:
  
 	!insertmacro MUI_LANGDLL_DISPLAY
- 
+	
 FunctionEnd
- 
+*/ 
  
  
 Section -Post
  
-	; Install VC runtimes
+	; Install VC 2013 runtimes
+	ExecWait '"$INSTDIR\work\vcredist_x64.exe"'
+	
+	; Install VC 2015 runtimes
 	ExecWait '"$INSTDIR\work\vc_redist.x64.exe"'
 	
 	; Install winpcap library
