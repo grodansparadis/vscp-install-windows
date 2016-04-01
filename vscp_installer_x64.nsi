@@ -438,11 +438,11 @@ VSCPWORKS_CONF_PRESENT:
 
 VSCPWORKS_CONF_INSTALL_HANDLED:
 	
-	; Install VSCP Works default configuration file
+	; Install the vscp daemon default configuration file
 	SetShellVarContext all
 	CreateDirectory "$APPDATA\VSCP"
-	SetOutPath "$APPDATA\vscp"
-	IfFileExists "$APPDATA\vscp\vscpd.conf" VSCPD_CONF_PRESENT	
+	SetOutPath "$APPDATA\vscpd"
+	IfFileExists "$APPDATA\vscpd\vscpd.conf" VSCPD_CONF_PRESENT	
 	goto VSCPD_CONF_INSTALL_HANDLED
 	
 VSCPD_CONF_PRESENT:	

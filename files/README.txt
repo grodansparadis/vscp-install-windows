@@ -1,11 +1,15 @@
-VSCP & Friends Version 1.1.0 - Sodium
-=====================================
+
+VSCP & Friends Version 1.12.22 - Magnesium  
+==========================================
 Copyright (C) 2000-2015 Paradise of the Frog AB.
 http://www.paradiseofthefrog.com, info@paradiseofthefrog.com
 
-This is the 1.1.0 Sodium release of VSCP & Friends. 
+This is the 1.12.22 - Magnesium  release of VSCP & Friends. 
 
 -----------------------------------------------------------------------------------------------
+	Questions? Go here https://groups.google.com/forum/#!forum/vscp
+-----------------------------------------------------------------------------------------------
+
 If you don't want to read a lot of text but rather want to test as soon as possible go here 
 http://www.vscp.org/docs/vscpd/doku.php?id=setting_up_the_system_on_windows
 
@@ -19,35 +23,31 @@ there to if you are like most people.
 There are also plenty of new stuff added in this release. Many, many bugs are fixed and other things are
 improved. Some major things are
 
-- mqtt driver fully rewritten and Windows version added.
+1.12.22
+=======
 
-- Fixed problem with time zone during summer saving time which caused calculations to be off.
+General
 
-- Refresh problem for websocket pages fixed.
+    Everything now works with WxWidgets 3.1.0
 
-- Added switch to daemon config setting 'disableauthentication' to make it possible to
-  disable web authentication.
 
-- Web authentication was broken. Fixed.
+VSCP Daemon
 
-- Fixed problem on Linux preventing web widgets working correctly.
+    Communication motor changed.
+    New event CLASS2.VSCPD, VSCP2_TYPE_VSCPD_NEW_CALCULATION
+    Stock variables added.
+    LUA
+    SQLite
+    Variable escapes in web pages with extension .vscp
+	Configuration folder on windows is now /programdata/vscpd
 
-- fgcolor and background colours can now be set directly in mdf for registry rows in the vscp works
-  configuration window.
 
-- VSCP Works now support block and dmmatrix1 register types in the mdf file. 
-  See http://www.vscp.org/docs/vscpspec/doku.php?id=module_description_file&#register_types
-  
-- REST interface completly worked through.
+VSCP Works
 
-- Security problem when loadeing page sin web i/f fixed.
-
-- Wizard for CANAL driver setup implemented.
-
-- CAN4VSCP driver major update with new features.
-
-- It is possible to ente a server name in the VSCP daemon configuration file that gives a symbolic
-	name for the server.
+    Keyboard shortcuts added to configuration window in VSCP Works.
+    Dynamical sizing added to status window in configure in VSCP Works.
+    Abstraction window in wxWorks now resize content correctly.
+    Size for session and configuration windows are now saved.
 
 -----------------------------------------------------------------------------------------------
 
@@ -62,7 +62,7 @@ sponsor the project. More info is here http://www.vscp.org/wiki/doku.php/sponsor
 
 Enjoy!
 
-LOS, Sweden 2015-10-20
+LOS, Sweden 2016-04-01
 Ake Hedman
 Paradise of the Frog AB
 
