@@ -8,7 +8,7 @@
 
 !define PRODUCT_NAME "VSCP & friends 64-bit"
 ;!define PRODUCT_VERSION '${VERSION}'
-!define PRODUCT_VERSION '1.1.0'
+!define PRODUCT_VERSION '1.12.22'
 !define PRODUCT_GROUP "Paradise of the Frog AB"
 !define PRODUCT_PUBLISHER "Paradise of the Frog AB"
 !define PRODUCT_WEB_SITE "http://www.vscp.org"
