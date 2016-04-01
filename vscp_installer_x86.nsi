@@ -9,7 +9,7 @@
 
 !define PRODUCT_NAME "VSCP & friends 32-bit"
 ;!define PRODUCT_VERSION '${VERSION}'
-!define PRODUCT_VERSION '1.12.22'
+!define PRODUCT_VERSION '1.12.0'
 !define PRODUCT_GROUP "Paradise of the Frog AB"
 !define PRODUCT_PUBLISHER "Paradise of the Frog AB"
 !define PRODUCT_WEB_SITE "http://www.vscp.org"
@@ -368,6 +368,8 @@ Section "Support components (required)" SEC01
 	!insertmacro InstallFile files\system\x86\ssleay32.dll
 	!insertmacro InstallFile files\system\x86\vscphelper.dll
 	!insertmacro InstallFile files\system\x86\libexpat.dll
+	!insertmacro InstallFile files\sqlite\x86\sqlite3.dll
+	!insertmacro InstallFile files\lua\x86\lua52.dll
  
     !insertmacro InstallFolder files\doc
 	!insertmacro InstallFolder files\work
