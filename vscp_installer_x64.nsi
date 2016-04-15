@@ -6,9 +6,10 @@
  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
 !define PRODUCT_NAME "VSCP & friends 64-bit"
 ;!define PRODUCT_VERSION '${VERSION}'
-!define PRODUCT_VERSION '1.12.0'
+!define PRODUCT_VERSION '1.12.2'
 !define PRODUCT_GROUP "Paradise of the Frog AB"
 !define PRODUCT_PUBLISHER "Paradise of the Frog AB"
 !define PRODUCT_WEB_SITE "http://www.vscp.org"
@@ -441,8 +442,8 @@ VSCPWORKS_CONF_INSTALL_HANDLED:
 	; Install the vscp daemon default configuration file
 	SetShellVarContext all
 	CreateDirectory "$APPDATA\VSCP"
-	SetOutPath "$APPDATA\vscpd"
-	IfFileExists "$APPDATA\vscpd\vscpd.conf" VSCPD_CONF_PRESENT	
+	SetOutPath "$APPDATA\vscp"
+	IfFileExists "$APPDATA\vscp\vscpd.conf" VSCPD_CONF_PRESENT	
 	goto VSCPD_CONF_INSTALL_HANDLED
 	
 VSCPD_CONF_PRESENT:	

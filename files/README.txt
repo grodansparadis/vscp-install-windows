@@ -1,14 +1,14 @@
 
-VSCP & Friends Version 1.12.22 - Magnesium  
+VSCP & Friends Version 1.12.2 - Magnesium  
 ==========================================
-Copyright (C) 2000-2015 Paradise of the Frog AB.
+Copyright (C) 2000-2016 Grodans Paradis AB / /Paradise of the Frog AB.
 http://www.paradiseofthefrog.com, info@paradiseofthefrog.com
 
-This is the 1.12.22 - Magnesium  release of VSCP & Friends. 
+This is the 1.12.2 - Magnesium  release of VSCP & Friends. 
 
------------------------------------------------------------------------------------------------
 	Questions? Go here https://groups.google.com/forum/#!forum/vscp
------------------------------------------------------------------------------------------------
+	
+	Binaries? Go here https://sourceforge.net/projects/m2m/files/VSCP%20Software/1.2%20Magnesium/
 
 If you don't want to read a lot of text but rather want to test as soon as possible go here 
 http://www.vscp.org/docs/vscpd/doku.php?id=setting_up_the_system_on_windows
@@ -18,13 +18,21 @@ You find the
 "The 5 second I don't want to read a shit walk through"
 
 there to if you are like most people. 
------------------------------------------------------------------------------------------------
+---
 
 There are also plenty of new stuff added in this release. Many, many bugs are fixed and other things are
 improved. Some major things are
 
-1.12.22
-=======
+1.12.2.0
+========
+
+General
+	- Updated to Mongoose to latest version 6.4 (affects webserver and websockets).
+	- Windows configure folder for vscpd is \programdata\vscp (broken in last release due to changes in wxWindgets 3.1).
+	- SQLite3 updated to latest version.
+
+1.12.0.22
+=========
 
 General
 
@@ -49,7 +57,7 @@ VSCP Works
     Abstraction window in wxWorks now resize content correctly.
     Size for session and configuration windows are now saved.
 
------------------------------------------------------------------------------------------------
+---
 
 Do you want to support this project?
 
@@ -64,7 +72,7 @@ Enjoy!
 
 LOS, Sweden 2016-04-01
 Ake Hedman
-Paradise of the Frog AB
+Grodans Paradis AB / Paradise of the Frog AB
 
 
 
