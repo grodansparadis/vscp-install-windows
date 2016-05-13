@@ -1,10 +1,10 @@
 
-VSCP & Friends Version 1.12.3 - Magnesium  
+VSCP & Friends Version 1.12.4 - Magnesium  
 ==========================================
 Copyright (C) 2000-2016 Grodans Paradis AB / /Paradise of the Frog AB.
 http://www.paradiseofthefrog.com, info@paradiseofthefrog.com
 
-This is the 1.12.3 - Magnesium  release of VSCP & Friends. 
+This is the 1.12.4 - Magnesium  release of VSCP & Friends. 
 
 	Questions? Go here https://groups.google.com/forum/#!forum/vscp
 	
@@ -22,6 +22,17 @@ there to if you are like most people.
 
 There are also plenty of new stuff added in this release. Many, many bugs are fixed and other things are
 improved. Some major things are
+
+1.12.4.0
+========
+
+  IMPORTANT!   This will be the last version with support for windows for the VSCP daemon.  
+  VSCP Works will still be available on windows but it's functionality will be moved to the 
+  web interface over time.
+  
+General
+   - REST interface is fully working again.
+   - New version of the HTML5 interface.   Install with "make web-files"
 
 1.12.3.0
 ========
@@ -90,9 +101,9 @@ sponsor the project. More info is here http://www.vscp.org/wiki/doku.php/sponsor
 
 Enjoy!
 
-LOS, Sweden 2016-04-29
+LOS, Sweden 2016-05-13
 Ake Hedman
-Grodans Paradis AB / Paradise of the Frog AB
+Grodans Paradis AB ( Paradise of the Frog )
 
 
 
