@@ -572,10 +572,10 @@ FunctionEnd
 Section -Post
  
 	; Install VC 2013 runtimes
-	;ExecWait '"$INSTDIR\work\vcredist_x64.exe"'
+	ExecWait '"$INSTDIR\work\vcredist_x64.exe /install /passive /norestart"'
 	
 	; Install VC 2017 runtimes
-	ExecWait '"$INSTDIR\work\vc_redist.x64.exe"'
+	ExecWait '"$INSTDIR\work\vc_redist.x64.exe /install /passive /norestart"'
 	
 	; Remove the work folder
 	RMDir /r $INSTDIR\work
