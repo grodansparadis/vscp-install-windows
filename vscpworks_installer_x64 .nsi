@@ -9,7 +9,7 @@
 
 !define PRODUCT_NAME "VSCP Works 64-bit"
 ;!define PRODUCT_VERSION '${VERSION}'
-!define PRODUCT_VERSION '13.0.0.4'
+!define PRODUCT_VERSION '13.0.0.9'
 !define PRODUCT_GROUP "Paradise of the Frog AB"
 !define PRODUCT_PUBLISHER "Paradise of the Frog AB"
 !define PRODUCT_WEB_SITE "http://www.vscp.org"
@@ -364,6 +364,7 @@ Section "Support components (required)" SEC01
 	!insertmacro InstallFile files\*.txt
 	!insertmacro InstallFile files\system\x64\libeay32.dll
 	!insertmacro InstallFile files\system\x64\libssl32.dll
+	!insertmacro InstallFile files\system\x64\ssleay32.dll
 	!insertmacro InstallFile files\system\x64\libcrypto-1_1-x64.dll
 	!insertmacro InstallFile files\system\x64\libssl-1_1-x64.dll
 	!insertmacro InstallFile files\system\x64\vscphelper.dll
