@@ -4,11 +4,10 @@ expected to be included in end products. Both licenses are
 listed in full below. 
  
 Alternative licenses for VSCP & Friends may be arranged by contacting 
-Grodans Paradis AB at info@grodansparadis.com, http://www.grodansparadis.com
+Grodans Paradis AB at info@grodansparadis.com, https://www.grodansparadis.com
 
 
-
-GNU GENERAL PUBLIC LICENSE
+GNU General Public LICENSE
 
 Version 2, June 1991
 
@@ -237,7 +236,7 @@ POSSIBILITY OF SUCH DAMAGES.
  
 The MIT License (MIT)
 
-Copyright (c) 2000-2015 Grodans Paradis AB
+Copyright (c) 2000-2018 Grodans Paradis AB
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

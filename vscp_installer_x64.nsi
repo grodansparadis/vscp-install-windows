@@ -9,9 +9,9 @@
 
 !define PRODUCT_NAME "VSCP & friends 64-bit"
 ;!define PRODUCT_VERSION '${VERSION}'
-!define PRODUCT_VERSION '1.12.4'
-!define PRODUCT_GROUP "Paradise of the Frog AB"
-!define PRODUCT_PUBLISHER "Paradise of the Frog AB"
+!define PRODUCT_VERSION '13.1.0'
+!define PRODUCT_GROUP "Grodans Paradis AB"
+!define PRODUCT_PUBLISHER "Grodans Paradis AB"
 !define PRODUCT_WEB_SITE "http://www.vscp.org"
 !define PRODUCT_DIR_REGKEY "Software\VSCP64"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -69,8 +69,8 @@ InstType /NOCUSTOM
 ; MUI Settings
  
   !define MUI_ABORTWARNING
-  !define MUI_ICON "fatbee_v2.ico"
-  !define MUI_UNICON "fatbee_v2.ico"
+  !define MUI_ICON "fatbee.ico"
+  !define MUI_UNICON "fatbee.ico"
   !define MUI_COMPONENTSPAGE_SMALLDESC
  
  
@@ -371,7 +371,7 @@ Section "Support components (required)" SEC01
 	!insertmacro InstallFile files\system\x64\vscphelper.dll
 	!insertmacro InstallFile files\system\x64\libexpat.dll
 	!insertmacro InstallFile files\sqlite\x64\sqlite3.dll
-	!insertmacro InstallFile files\lua\x64\lua52.dll
+	!insertmacro InstallFile files\lua\x64\lua53.dll
  
     !insertmacro InstallFolder files\doc
 	!insertmacro InstallFolder files\work

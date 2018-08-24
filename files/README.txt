@@ -1,17 +1,17 @@
 
-VSCP & Friends Version 1.12.4 - Magnesium  
+VSCP & Friends Version 13.1.0 - Aluminium  
 ==========================================
-Copyright (C) 2000-2016 Grodans Paradis AB / /Paradise of the Frog AB.
-http://www.paradiseofthefrog.com, info@paradiseofthefrog.com
+Copyright (C) 2000-2018 Grodans Paradis AB
+https://www.grodansparadis.com, info@grodansparadis.com 
 
-This is the 1.12.4 - Magnesium  release of VSCP & Friends. 
+This is the 13.1.0 - Aluminium  release of VSCP & Friends. 
 
 	Questions? Go here https://groups.google.com/forum/#!forum/vscp
 	
-	Binaries? Go here https://sourceforge.net/projects/m2m/files/VSCP%20Software/1.2%20Magnesium/
+	Binaries? Go here https://sourceforge.net/projects/m2m/files/VSCP%20Software
 
 If you don't want to read a lot of text but rather want to test as soon as possible go here 
-http://www.vscp.org/docs/vscpd/doku.php?id=setting_up_the_system_on_windows
+https://grodansparadis.gitbooks.io/the-vscp-daemon/setting_up_the_system_on_windows.html
 
 You find the
 
@@ -22,6 +22,34 @@ there to if you are like most people.
 
 There are also plenty of new stuff added in this release. Many, many bugs are fixed and other things are
 improved. Some major things are
+
+13.1.0
+======
+
+- tcp/ip client is disconnected after 12 hours of inactivity. rcvloop clients does not have this limit.
+- VSCP bootloader added to VSCP Works by Andreas M.
+- Fixed segfault on Windows for VSCP Works session windows close
+- Now release/debug switch works in config.
+- Fixed web/websockets server configuration issue.
+- Python example scripts (updated)  now have crontab examples also. (
+- vscp/src/vscp/samples/python)
+- make web-install added to make script to install web i/f sample code. It is also possible to use do_web_download script (available in root folder) to manually  download.
+- Dumb node (Level II) introduces.
+- Added Arduino example for ESP8266 connecting the VSCP daemon. (Example of dumb node)
+- Code compiles on Windows again.
+- Max data size increase form 487 to 512.
+- Fixed rare occurring segfault for DM action "send event to remote server"
+- Fixed Level I interface origin GUID bug
+- Helperlib now have totally rewritten tcp/ip submodules that are faster, licensed under MIT licens and support SSL/TSL.
+- tcp/ip interface now remembers 200 commands which can be repeated,
+- All commands working as usual also in receive loop mode of tcp//ip interface.
+- Configure script now take care of setting openssl version flag
+- Complete man pages for all commands in place on Unix
+- Updated mongoose to 6.12
+- json pack updated to 3.1.2
+- sqlite3 updated to 3.24.0
+- LUA updated to 5.3.5
+- Duktape updated to 2.1.2
 
 1.12.4.0
 ========
@@ -101,7 +129,7 @@ sponsor the project. More info is here http://www.vscp.org/wiki/doku.php/sponsor
 
 Enjoy!
 
-LOS, Sweden 2016-05-13
+LOS, Sweden 2018-08-23
 Ake Hedman
 Grodans Paradis AB ( Paradise of the Frog )
 

@@ -9,10 +9,10 @@
 
 !define PRODUCT_NAME "VSCP & friends 32-bit"
 ;!define PRODUCT_VERSION '${VERSION}'
-!define PRODUCT_VERSION '1.12.4'
-!define PRODUCT_GROUP "Paradise of the Frog AB"
-!define PRODUCT_PUBLISHER "Paradise of the Frog AB"
-!define PRODUCT_WEB_SITE "http://www.vscp.org"
+!define PRODUCT_VERSION '13.1.0'
+!define PRODUCT_GROUP "Grodans Paradis AB"
+!define PRODUCT_PUBLISHER "Grodans Paradis AB"
+!define PRODUCT_WEB_SITE "https://www.vscp.org"
 !define PRODUCT_DIR_REGKEY "Software\VSCP32"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
@@ -67,8 +67,8 @@ InstType /NOCUSTOM
 ; MUI Settings
  
   !define MUI_ABORTWARNING
-  !define MUI_ICON "fatbee_v2.ico"
-  !define MUI_UNICON "fatbee_v2.ico"
+  !define MUI_ICON "fatbee.ico"
+  !define MUI_UNICON "fatbee.ico"
   !define MUI_COMPONENTSPAGE_SMALLDESC
  
  
