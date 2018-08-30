@@ -1,3 +1,30 @@
+VSCP & Friends Version 13.1.1 - Aluminium  
+==========================================
+Copyright (C) 2000-2018 Grodans Paradis AB
+https://www.grodansparadis.com, info@grodansparadis.com 
+
+This is the 13.1.1 - Aluminium  release of VSCP & Friends. 
+
+	Questions? Go here https://groups.google.com/forum/#!forum/vscp
+	
+	Binaries? Go here https://sourceforge.net/projects/m2m/files/VSCP%20Software
+
+If you don't want to read a lot of text but rather want to test as soon as possible go here 
+https://grodansparadis.gitbooks.io/the-vscp-daemon/setting_up_the_system_on_windows.html
+
+You find the
+
+"The 5 second I don't want to read a shit walk through"
+
+there to if you are like most people. 
+---
+
+This is a bugfix release.
+
+13.1.1
+======
+Fixed bug in remote connection handling that could cause a segfault.
+
 
 VSCP & Friends Version 13.1.0 - Aluminium  
 ==========================================
